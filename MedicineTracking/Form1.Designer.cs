@@ -38,6 +38,7 @@ namespace MedicineTracking
             this.button2 = new System.Windows.Forms.Button();
             this.dateTimePicker2 = new System.Windows.Forms.DateTimePicker();
             this.tabControl1 = new System.Windows.Forms.TabControl();
+            this.tabPage0 = new System.Windows.Forms.TabPage();
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.medicineQuantityProject = new System.Windows.Forms.Button();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
@@ -46,6 +47,7 @@ namespace MedicineTracking
             this.hToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.releaseInfoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.tabControl1.SuspendLayout();
+            this.tabPage0.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
@@ -53,7 +55,7 @@ namespace MedicineTracking
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(12, 38);
+            this.label2.Location = new System.Drawing.Point(6, 20);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(118, 13);
             this.label2.TabIndex = 0;
@@ -62,25 +64,25 @@ namespace MedicineTracking
             // PatientInventoryFolderTextBox
             // 
             this.PatientInventoryFolderTextBox.Enabled = false;
-            this.PatientInventoryFolderTextBox.Location = new System.Drawing.Point(136, 33);
+            this.PatientInventoryFolderTextBox.Location = new System.Drawing.Point(130, 17);
             this.PatientInventoryFolderTextBox.Name = "PatientInventoryFolderTextBox";
             this.PatientInventoryFolderTextBox.ReadOnly = true;
-            this.PatientInventoryFolderTextBox.Size = new System.Drawing.Size(355, 20);
+            this.PatientInventoryFolderTextBox.Size = new System.Drawing.Size(335, 20);
             this.PatientInventoryFolderTextBox.TabIndex = 1;
             // 
             // PatientDosageFolderTextBox
             // 
             this.PatientDosageFolderTextBox.Enabled = false;
-            this.PatientDosageFolderTextBox.Location = new System.Drawing.Point(136, 59);
+            this.PatientDosageFolderTextBox.Location = new System.Drawing.Point(130, 43);
             this.PatientDosageFolderTextBox.Name = "PatientDosageFolderTextBox";
             this.PatientDosageFolderTextBox.ReadOnly = true;
-            this.PatientDosageFolderTextBox.Size = new System.Drawing.Size(355, 20);
+            this.PatientDosageFolderTextBox.Size = new System.Drawing.Size(335, 20);
             this.PatientDosageFolderTextBox.TabIndex = 2;
             // 
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(12, 62);
+            this.label3.Location = new System.Drawing.Point(6, 46);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(110, 13);
             this.label3.TabIndex = 3;
@@ -89,7 +91,7 @@ namespace MedicineTracking
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(6, 22);
+            this.label1.Location = new System.Drawing.Point(6, 27);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(63, 13);
             this.label1.TabIndex = 4;
@@ -97,14 +99,14 @@ namespace MedicineTracking
             // 
             // dateTimePicker1
             // 
-            this.dateTimePicker1.Location = new System.Drawing.Point(120, 16);
+            this.dateTimePicker1.Location = new System.Drawing.Point(120, 21);
             this.dateTimePicker1.Name = "dateTimePicker1";
             this.dateTimePicker1.Size = new System.Drawing.Size(210, 20);
             this.dateTimePicker1.TabIndex = 5;
             // 
             // patientInventoryForecast
             // 
-            this.patientInventoryForecast.Location = new System.Drawing.Point(336, 44);
+            this.patientInventoryForecast.Location = new System.Drawing.Point(336, 74);
             this.patientInventoryForecast.Name = "patientInventoryForecast";
             this.patientInventoryForecast.Size = new System.Drawing.Size(210, 23);
             this.patientInventoryForecast.TabIndex = 6;
@@ -114,7 +116,7 @@ namespace MedicineTracking
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(497, 33);
+            this.button1.Location = new System.Drawing.Point(471, 14);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(75, 23);
             this.button1.TabIndex = 7;
@@ -124,7 +126,7 @@ namespace MedicineTracking
             // 
             // button2
             // 
-            this.button2.Location = new System.Drawing.Point(497, 62);
+            this.button2.Location = new System.Drawing.Point(471, 43);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(75, 23);
             this.button2.TabIndex = 8;
@@ -134,19 +136,36 @@ namespace MedicineTracking
             // 
             // dateTimePicker2
             // 
-            this.dateTimePicker2.Location = new System.Drawing.Point(336, 16);
+            this.dateTimePicker2.Location = new System.Drawing.Point(336, 21);
             this.dateTimePicker2.Name = "dateTimePicker2";
             this.dateTimePicker2.Size = new System.Drawing.Size(210, 20);
             this.dateTimePicker2.TabIndex = 9;
             // 
             // tabControl1
             // 
+            this.tabControl1.Controls.Add(this.tabPage0);
             this.tabControl1.Controls.Add(this.tabPage1);
-            this.tabControl1.Location = new System.Drawing.Point(12, 121);
+            this.tabControl1.Location = new System.Drawing.Point(12, 41);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(560, 128);
+            this.tabControl1.Size = new System.Drawing.Size(560, 158);
             this.tabControl1.TabIndex = 10;
+            // 
+            // tabPage0
+            // 
+            this.tabPage0.Controls.Add(this.label2);
+            this.tabPage0.Controls.Add(this.button2);
+            this.tabPage0.Controls.Add(this.label3);
+            this.tabPage0.Controls.Add(this.PatientDosageFolderTextBox);
+            this.tabPage0.Controls.Add(this.button1);
+            this.tabPage0.Controls.Add(this.PatientInventoryFolderTextBox);
+            this.tabPage0.Location = new System.Drawing.Point(4, 22);
+            this.tabPage0.Name = "tabPage0";
+            this.tabPage0.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage0.Size = new System.Drawing.Size(552, 132);
+            this.tabPage0.TabIndex = 1;
+            this.tabPage0.Text = "Database";
+            this.tabPage0.UseVisualStyleBackColor = true;
             // 
             // tabPage1
             // 
@@ -158,14 +177,14 @@ namespace MedicineTracking
             this.tabPage1.Location = new System.Drawing.Point(4, 22);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(552, 102);
+            this.tabPage1.Size = new System.Drawing.Size(552, 132);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Medicine tracking";
             this.tabPage1.UseVisualStyleBackColor = true;
             // 
             // medicineQuantityProject
             // 
-            this.medicineQuantityProject.Location = new System.Drawing.Point(336, 73);
+            this.medicineQuantityProject.Location = new System.Drawing.Point(336, 103);
             this.medicineQuantityProject.Name = "medicineQuantityProject";
             this.medicineQuantityProject.Size = new System.Drawing.Size(210, 23);
             this.medicineQuantityProject.TabIndex = 10;
@@ -215,14 +234,8 @@ namespace MedicineTracking
             // 
             // Form1
             // 
-            this.ClientSize = new System.Drawing.Size(584, 261);
+            this.ClientSize = new System.Drawing.Size(584, 211);
             this.Controls.Add(this.tabControl1);
-            this.Controls.Add(this.button2);
-            this.Controls.Add(this.button1);
-            this.Controls.Add(this.label3);
-            this.Controls.Add(this.PatientDosageFolderTextBox);
-            this.Controls.Add(this.PatientInventoryFolderTextBox);
-            this.Controls.Add(this.label2);
             this.Controls.Add(this.menuStrip1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
@@ -230,13 +243,15 @@ namespace MedicineTracking
             this.Name = "Form1";
             this.Load += new System.EventHandler(this.Form1_Load);
             this.tabControl1.ResumeLayout(false);
+            this.tabPage0.ResumeLayout(false);
+            this.tabPage0.PerformLayout();
             this.tabPage1.ResumeLayout(false);
             this.tabPage1.PerformLayout();
+            this.tabControl1.SelectedTab = this.tabPage1;
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
-
         }
 
 
@@ -252,9 +267,9 @@ namespace MedicineTracking
         private System.Windows.Forms.Button button2;
         private System.Windows.Forms.DateTimePicker dateTimePicker2;
         private System.Windows.Forms.TabControl tabControl1;
+        private System.Windows.Forms.TabPage tabPage0;
         private System.Windows.Forms.TabPage tabPage1;
         private System.Windows.Forms.Button medicineQuantityProject;
-        private System.Windows.Forms.TabPage tabPage2;
         private System.Windows.Forms.MenuStrip menuStrip1;
         private System.Windows.Forms.ToolStripMenuItem fileToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem hToolStripMenuItem;

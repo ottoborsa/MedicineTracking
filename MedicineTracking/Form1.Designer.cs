@@ -61,15 +61,19 @@ namespace MedicineTracking
             // 
             // PatientInventoryFolderTextBox
             // 
+            this.PatientInventoryFolderTextBox.Enabled = false;
             this.PatientInventoryFolderTextBox.Location = new System.Drawing.Point(129, 33);
             this.PatientInventoryFolderTextBox.Name = "PatientInventoryFolderTextBox";
+            this.PatientInventoryFolderTextBox.ReadOnly = true;
             this.PatientInventoryFolderTextBox.Size = new System.Drawing.Size(362, 20);
             this.PatientInventoryFolderTextBox.TabIndex = 1;
             // 
             // PatientDosageFolderTextBox
             // 
+            this.PatientDosageFolderTextBox.Enabled = false;
             this.PatientDosageFolderTextBox.Location = new System.Drawing.Point(129, 59);
             this.PatientDosageFolderTextBox.Name = "PatientDosageFolderTextBox";
+            this.PatientDosageFolderTextBox.ReadOnly = true;
             this.PatientDosageFolderTextBox.Size = new System.Drawing.Size(362, 20);
             this.PatientDosageFolderTextBox.TabIndex = 2;
             // 
@@ -191,7 +195,7 @@ namespace MedicineTracking
             // exitToolStripMenuItem
             // 
             this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
-            this.exitToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.exitToolStripMenuItem.Size = new System.Drawing.Size(92, 22);
             this.exitToolStripMenuItem.Text = "Exit";
             this.exitToolStripMenuItem.Click += new System.EventHandler(this.exitToolStripMenuItem_Click);
             // 
@@ -206,7 +210,7 @@ namespace MedicineTracking
             // releaseInfoToolStripMenuItem
             // 
             this.releaseInfoToolStripMenuItem.Name = "releaseInfoToolStripMenuItem";
-            this.releaseInfoToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.releaseInfoToolStripMenuItem.Size = new System.Drawing.Size(137, 22);
             this.releaseInfoToolStripMenuItem.Text = "Release info";
             // 
             // Form1

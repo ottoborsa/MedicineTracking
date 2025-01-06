@@ -9,11 +9,20 @@ using MedicineTracking.Model;
 namespace MedicineTracking
 {
 
+    /// <summary>
+    /// fullPath, fileContent
+    /// </summary>
     using FolderContent = Dictionary<string, string>;
 
 
     public static class MedicineTracking
     {
+
+        public const string FileExtension = "csv";
+
+        public const char Separator = '_';
+
+
 
         public const string ColumnMedicineId = "medicine_id";
 
@@ -22,6 +31,12 @@ namespace MedicineTracking
         public const string ColumnIngredientContent = "ingredient_content";
 
         public const string ColumnInventoryPrefix = "inventory_";
+
+        public const string ColumnIncrementPrefix = "increment_";
+
+
+
+
 
         public const string ColumnDailyDosage = "daily_dosage";
 
@@ -33,13 +48,33 @@ namespace MedicineTracking
 
 
 
+        public static string[] PatientInventoryResultSignature = new string[]
+        {
+            "patient_id",
+            "patient_name",
+            "medicine_id",
+            "medicine_name",
+            "zero_quantity_threshold_date"
+        };
+
+        public static string[] MedicineQuantityResultSignature = new string[]
+        {
+            "medicine_id",
+            "medicine_name",
+            "quantity_increase"
+        };
+
+
+
+
+
 
 
         private static FolderContent GetFolderContent(string folder)
         {
             FolderContent result = new FolderContent();
 
-            foreach (string file in Directory.EnumerateFiles(folder, "*.csv"))
+            foreach (string file in Directory.EnumerateFiles(folder, $"*.{FileExtension}"))
             {
                 result.Add(file, File.ReadAllText(file));
             }
@@ -49,31 +84,62 @@ namespace MedicineTracking
 
 
 
-        public static void Generate(string inventoryFolder, string dosageFolder)
+        public static void GenerateInventoryForecast(string inventoryFolder, string dosageFolder, DateTime dateFrom, DateTime dateTo)
         {
 
             List<PatientInventory> patientInventories = ParsePatientInventory(GetFolderContent(inventoryFolder));
-
-
             List<MedicineDosage> medicineDosages = ParsePatientDosage(GetFolderContent(dosageFolder));
 
 
 
 
 
-            ;
+            foreach (PatientInventory inventory in patientInventories)
+            {
+                string patientId = inventory.PatientId;
+                string patientName = inventory.PatientName;
+
+                foreach(PatientInventoryRecord record in inventory.PatientInventoryRecords)
+                {
+                    string medicineId = record.MedicineId;
+                    string medicineName = record.MedicineName;
+
+                    int count = record.MedicineCount;
+                }
+
+
+            }
+
+
+            foreach (MedicineDosage inventory in medicineDosages)
+            {
+                string patientId = inventory.PatientId;
+
+                
+
+            }
 
 
 
 
+            /*
+            var rows = new[]
+            {
+                new [] { "0", "John Doe" },
+                new [] { "1", "Jane Doe" }
+            };
+
+            var csv = CsvWriter.WriteToText(columnNames, rows, ',');
+            File.WriteAllText($"result.{FileExtension}", csv);
+            */
         }
 
 
-        private static List<MedicineDosage> ParsePatientDosage(FolderContent dosage)
+        private static List<MedicineDosage> ParsePatientDosage(FolderContent folder)
         {
             List<MedicineDosage> result = new List<MedicineDosage>();
 
-            foreach (KeyValuePair<string, string> item in dosage)
+            foreach (KeyValuePair<string, string> item in folder)
             {
                 List<MedicineDosageRecord> list = new List<MedicineDosageRecord>();
 
@@ -82,15 +148,15 @@ namespace MedicineTracking
                 string fileName = path[path.Length - 1];
                 string fileContent = item.Value;
 
-                string patientId = fileName.Split('_')[0];
-                string patientName = fileName.Split('_')[1];
+                string patientId = fileName.Split(Separator)[0];
+                string patientName = fileName.Split(Separator)[1];
 
                 foreach (var line in CsvReader.ReadFromText(fileContent, new CsvOptions { HeaderMode = HeaderMode.HeaderPresent }))
                 {
                     string medicineId = line[ColumnMedicineId];
                     int dailyDosage = Int32.Parse(line[ColumnDailyDosage]);
-                    DateTime validFrom = DateTime.Parse(line[ColumnValidFrom]);
-                    DateTime validTo = DateTime.Parse(String.IsNullOrEmpty(line[ColumnValidTo]) ? "2100.12.31" : line[ColumnValidTo]);
+                    DateTime validFrom = DateTime.Parse(String.IsNullOrEmpty(line[ColumnValidFrom]) ? "1900-01-01" : line[ColumnValidFrom]);
+                    DateTime validTo = DateTime.Parse(String.IsNullOrEmpty(line[ColumnValidTo]) ? "2100-12-31" : line[ColumnValidTo]);
 
                     list.Add(new MedicineDosageRecord(medicineId, dailyDosage, validFrom, validTo));
                 }
@@ -103,11 +169,11 @@ namespace MedicineTracking
         }
 
 
-        private static List<PatientInventory> ParsePatientInventory(FolderContent inventory)
+        private static List<PatientInventory> ParsePatientInventory(FolderContent folder)
         {
             List<PatientInventory> result = new List<PatientInventory>();
 
-            foreach (KeyValuePair<string, string> item in inventory)
+            foreach (KeyValuePair<string, string> item in folder)
             {
                 List<PatientInventoryRecord> list = new List<PatientInventoryRecord>();
 
@@ -116,8 +182,8 @@ namespace MedicineTracking
                 string fileName = path[path.Length - 1];
                 string fileContent = item.Value;
 
-                string patientId = fileName.Split('_')[0];
-                string patientName = fileName.Split('_')[1];
+                string patientId = fileName.Split(Separator)[0];
+                string patientName = fileName.Split(Separator)[1];
 
                 foreach (var line in CsvReader.ReadFromText(fileContent, new CsvOptions { HeaderMode = HeaderMode.HeaderPresent }))
                 {

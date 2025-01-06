@@ -9,9 +9,9 @@ namespace MedicineTracking
     {
 
 
-        public const string DefaultInventoryFolder = "Y:\\000000000000000\\PATIENT_INVENTORY";
+        public const string DefaultInventoryFolder = "X:\\REPOS\\000\\PATIENT_INVENTORY";
 
-        public const string DefaultDosageFolder = "Y:\\000000000000000\\PATIENT_DOSAGE";
+        public const string DefaultDosageFolder = "X:\\REPOS\\000\\PATIENT_DOSAGE";
 
 
 
@@ -27,9 +27,20 @@ namespace MedicineTracking
             PatientDosageFolderTextBox.Text = DefaultDosageFolder;
         }
 
-        private void generate_Click(object sender, EventArgs e)
+
+        private void patientInventoryForecast_Click(object sender, EventArgs e)
         {
-            MedicineTracking.Generate(PatientInventoryFolderTextBox.Text, PatientDosageFolderTextBox.Text);
+            MedicineTracking.GenerateInventoryForecast(
+                PatientInventoryFolderTextBox.Text,
+                PatientDosageFolderTextBox.Text,
+                dateTimePicker1.Value,
+                dateTimePicker2.Value
+            );
+        }
+
+        private void medicineQuantityProject_Click(object sender, EventArgs e)
+        {
+
         }
 
 
@@ -49,6 +60,11 @@ namespace MedicineTracking
             {
                 PatientDosageFolderTextBox.Text = folderBrowserDialog1.SelectedPath;
             }
+        }
+
+        private void exitToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            this.Close();
         }
     }
 }

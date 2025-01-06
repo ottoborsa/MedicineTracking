@@ -53,7 +53,7 @@ namespace MedicineTracking
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(5, 38);
+            this.label2.Location = new System.Drawing.Point(12, 38);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(118, 13);
             this.label2.TabIndex = 0;
@@ -62,25 +62,25 @@ namespace MedicineTracking
             // PatientInventoryFolderTextBox
             // 
             this.PatientInventoryFolderTextBox.Enabled = false;
-            this.PatientInventoryFolderTextBox.Location = new System.Drawing.Point(129, 33);
+            this.PatientInventoryFolderTextBox.Location = new System.Drawing.Point(136, 33);
             this.PatientInventoryFolderTextBox.Name = "PatientInventoryFolderTextBox";
             this.PatientInventoryFolderTextBox.ReadOnly = true;
-            this.PatientInventoryFolderTextBox.Size = new System.Drawing.Size(362, 20);
+            this.PatientInventoryFolderTextBox.Size = new System.Drawing.Size(355, 20);
             this.PatientInventoryFolderTextBox.TabIndex = 1;
             // 
             // PatientDosageFolderTextBox
             // 
             this.PatientDosageFolderTextBox.Enabled = false;
-            this.PatientDosageFolderTextBox.Location = new System.Drawing.Point(129, 59);
+            this.PatientDosageFolderTextBox.Location = new System.Drawing.Point(136, 59);
             this.PatientDosageFolderTextBox.Name = "PatientDosageFolderTextBox";
             this.PatientDosageFolderTextBox.ReadOnly = true;
-            this.PatientDosageFolderTextBox.Size = new System.Drawing.Size(362, 20);
+            this.PatientDosageFolderTextBox.Size = new System.Drawing.Size(355, 20);
             this.PatientDosageFolderTextBox.TabIndex = 2;
             // 
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(5, 62);
+            this.label3.Location = new System.Drawing.Point(12, 62);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(110, 13);
             this.label3.TabIndex = 3;

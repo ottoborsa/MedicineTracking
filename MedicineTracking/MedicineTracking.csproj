@@ -74,6 +74,10 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <None Include="Files\DatabaseTemplate\patient dosage\0001_Test User A.csv" />
+    <None Include="Files\DatabaseTemplate\patient dosage\0002_Test User B.csv" />
+    <None Include="Files\DatabaseTemplate\patient inventory\0001_Test User A.csv" />
+    <None Include="Files\DatabaseTemplate\patient inventory\0002_Test User B.csv" />
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>

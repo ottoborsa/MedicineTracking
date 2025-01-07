@@ -9,9 +9,9 @@ namespace MedicineTracking
     {
 
 
-        public const string DefaultInventoryFolder = "X:\\REPOS\\000\\PATIENT_INVENTORY";
+        public const string DefaultInventoryFolder = "x:\\REPOS\\000\\patient inventory\\";
 
-        public const string DefaultDosageFolder = "X:\\REPOS\\000\\PATIENT_DOSAGE";
+        public const string DefaultDosageFolder = "x:\\REPOS\\000\\patient dosage\\";
 
 
 
@@ -64,7 +64,7 @@ namespace MedicineTracking
 
         private void exitToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            this.Close();
+            Close();
         }
     }
 }

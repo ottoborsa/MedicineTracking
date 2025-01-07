@@ -1,0 +1,7 @@
+medicine_id;medicine_name;daily_dosage;valid_from;valid_to
+1;T. Tenaxum;4;2025.01.01;2025.01.02
+1;T. Tenaxum;2;2025.01.03;
+2;T. Valsartan HCT;5;2025.01.01;
+3;T. Atorvastatin;5;2025.01.01;
+4;T. Frontin;5;2025.01.01;
+5;T. Maltofer Fol;5;2025.01.01;

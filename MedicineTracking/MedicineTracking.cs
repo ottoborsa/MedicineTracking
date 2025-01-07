@@ -2,7 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
-using Csv;
+
 using MedicineTracking.Model;
 
 
@@ -86,87 +86,18 @@ namespace MedicineTracking
 
         public static void GenerateInventoryForecast(string inventoryFolder, string dosageFolder, DateTime dateFrom, DateTime dateTo)
         {
-
-            List<PatientInventory> patientInventories = ParsePatientInventory(GetFolderContent(inventoryFolder));
+            //List<PatientInventory> patientInventories = ParsePatientInventory(GetFolderContent(inventoryFolder));
             List<MedicineDosage> medicineDosages = ParsePatientDosage(GetFolderContent(dosageFolder));
 
 
 
-
-
-            foreach (PatientInventory inventory in patientInventories)
-            {
-                string patientId = inventory.PatientId;
-                string patientName = inventory.PatientName;
-
-                foreach(PatientInventoryRecord record in inventory.PatientInventoryRecords)
-                {
-                    string medicineId = record.MedicineId;
-                    string medicineName = record.MedicineName;
-
-                    int count = record.MedicineCount;
-                }
-
-
-            }
-
-
-            foreach (MedicineDosage inventory in medicineDosages)
-            {
-                string patientId = inventory.PatientId;
-
-                
-
-            }
+            ;
 
 
 
 
-            /*
-            var rows = new[]
-            {
-                new [] { "0", "John Doe" },
-                new [] { "1", "Jane Doe" }
-            };
-
-            var csv = CsvWriter.WriteToText(columnNames, rows, ',');
-            File.WriteAllText($"result.{FileExtension}", csv);
-            */
         }
 
-
-        private static List<MedicineDosage> ParsePatientDosage(FolderContent folder)
-        {
-            List<MedicineDosage> result = new List<MedicineDosage>();
-
-            foreach (KeyValuePair<string, string> item in folder)
-            {
-                List<MedicineDosageRecord> list = new List<MedicineDosageRecord>();
-
-                string filePath = item.Key;
-                string[] path = filePath.Split('\\');
-                string fileName = path[path.Length - 1];
-                string fileContent = item.Value;
-
-                string patientId = fileName.Split(Separator)[0];
-                string patientName = fileName.Split(Separator)[1];
-
-                foreach (var line in CsvReader.ReadFromText(fileContent, new CsvOptions { HeaderMode = HeaderMode.HeaderPresent }))
-                {
-                    string medicineId = line[ColumnMedicineId];
-                    int dailyDosage = Int32.Parse(line[ColumnDailyDosage]);
-                    DateTime validFrom = DateTime.Parse(String.IsNullOrEmpty(line[ColumnValidFrom]) ? "1900-01-01" : line[ColumnValidFrom]);
-                    DateTime validTo = DateTime.Parse(String.IsNullOrEmpty(line[ColumnValidTo]) ? "2100-12-31" : line[ColumnValidTo]);
-
-                    list.Add(new MedicineDosageRecord(medicineId, dailyDosage, validFrom, validTo));
-                }
-
-                MedicineDosage patient = new MedicineDosage(patientId, patientName, list);
-                result.Add(patient);
-            }
-
-            return result;
-        }
 
 
         private static List<PatientInventory> ParsePatientInventory(FolderContent folder)
@@ -185,17 +116,53 @@ namespace MedicineTracking
                 string patientId = fileName.Split(Separator)[0];
                 string patientName = fileName.Split(Separator)[1];
 
-                foreach (var line in CsvReader.ReadFromText(fileContent, new CsvOptions { HeaderMode = HeaderMode.HeaderPresent }))
+                CsvParser.Matrix inventory = CsvParser.CsvParser.Parse(fileContent);
+
+                for (int i = 0; i < inventory.GetSize(); i++)
                 {
-                    string medicineId = line[ColumnMedicineId];
-                    string medicineName = line[ColumnMedicineName];
-                    int count = Int32.Parse(line["inventory_2025-01-01"]);
+                    string medicineId = inventory.GetValue(ColumnMedicineId, i);
+                    string medicineName = inventory.GetValue(ColumnMedicineName, i);
+                    int count = Int32.Parse(inventory.GetValue("inventory_2025-01-01", i) ?? "0");
 
                     list.Add(new PatientInventoryRecord(medicineId, medicineName, new DateTime(2025, 1, 1), count));
                 }
 
                 PatientInventory patient = new PatientInventory(patientId, patientName, list);
 
+                result.Add(patient);
+            }
+
+            return result;
+        }
+
+        private static List<MedicineDosage> ParsePatientDosage(FolderContent folder)
+        {
+            List<MedicineDosage> result = new List<MedicineDosage>();
+
+            foreach (KeyValuePair<string, string> item in folder)
+            {
+                List<MedicineDosageRecord> list = new List<MedicineDosageRecord>();
+
+                string filePath = item.Key;
+                string[] path = filePath.Split('\\');
+                string fileName = path[path.Length - 1];
+                string fileContent = item.Value;
+
+                string patientId = fileName.Split(Separator)[0];
+                string patientName = fileName.Split(Separator)[1];
+
+                CsvParser.Matrix inventory = CsvParser.CsvParser.Parse(fileContent);
+
+                for (int i = 0; i < inventory.GetSize(); i++)
+                {
+                    string medicineId = inventory.GetValue(ColumnMedicineId, i);
+                    int dailyDosage = Int32.Parse(inventory.GetValue(ColumnDailyDosage, i));
+                    DateTime validFrom = DateTime.Parse(String.IsNullOrEmpty(inventory.GetValue(ColumnValidFrom, i)) ? "1900-01-01" : inventory.GetValue(ColumnValidFrom, i));
+                    DateTime validTo = DateTime.Parse(String.IsNullOrEmpty(inventory.GetValue(ColumnValidTo, i)) ? "2100-12-31" : inventory.GetValue(ColumnValidTo, i));
+                    list.Add(new MedicineDosageRecord(medicineId, dailyDosage, validFrom, validTo));
+                }
+
+                MedicineDosage patient = new MedicineDosage(patientId, patientName, list);
                 result.Add(patient);
             }
 

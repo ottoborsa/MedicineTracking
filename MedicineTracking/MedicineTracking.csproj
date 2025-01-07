@@ -33,9 +33,6 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Csv, Version=2.0.93.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Csv.2.0.93\lib\net40\Csv.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -49,6 +46,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CsvParser\CsvParser.cs" />
+    <Compile Include="CsvParser\Matrix.cs" />
     <Compile Include="MedicineTracking.cs" />
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>
@@ -78,7 +77,6 @@
     <None Include="Files\DatabaseTemplate\patient dosage\0002_Test User B.csv" />
     <None Include="Files\DatabaseTemplate\patient inventory\0001_Test User A.csv" />
     <None Include="Files\DatabaseTemplate\patient inventory\0002_Test User B.csv" />
-    <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>

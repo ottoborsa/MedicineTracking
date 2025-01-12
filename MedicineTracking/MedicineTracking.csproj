@@ -46,9 +46,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Query\MedicineDepletionProjection.cs" />
+    <Compile Include="Query\MedicineDecrement.cs" />
     <Compile Include="CsvParser\CsvParser.cs" />
     <Compile Include="CsvParser\Matrix.cs" />
-    <Compile Include="MedicineTracking.cs" />
+    <Compile Include="Core\Common.cs" />
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -59,6 +61,8 @@
     <Compile Include="Model\MedicineDosageRecord.cs" />
     <Compile Include="Model\PatientInventory.cs" />
     <Compile Include="Model\PatientInventoryRecord.cs" />
+    <Compile Include="Table\PatientDosage.cs" />
+    <Compile Include="Table\PatientInventory.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="Form1.resx">
@@ -73,10 +77,6 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <None Include="Files\DatabaseTemplate\patient dosage\0001_Test User A.csv" />
-    <None Include="Files\DatabaseTemplate\patient dosage\0002_Test User B.csv" />
-    <None Include="Files\DatabaseTemplate\patient inventory\0001_Test User A.csv" />
-    <None Include="Files\DatabaseTemplate\patient inventory\0002_Test User B.csv" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -90,7 +90,10 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Files\DatabaseTemplate\patient dosage\" />
+    <Folder Include="Files\DatabaseTemplate\patient inventory\" />
+  </ItemGroup>
   <ItemGroup>
     <Content Include="Files\medicine.ico" />
   </ItemGroup>

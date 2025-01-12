@@ -32,7 +32,7 @@ namespace MedicineTracking
             this.label3 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.dateTimePicker1 = new System.Windows.Forms.DateTimePicker();
-            this.patientInventoryForecast = new System.Windows.Forms.Button();
+            this.medicineDecrement = new System.Windows.Forms.Button();
             this.folderBrowserDialog1 = new System.Windows.Forms.FolderBrowserDialog();
             this.button1 = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
@@ -40,7 +40,7 @@ namespace MedicineTracking
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage0 = new System.Windows.Forms.TabPage();
             this.tabPage1 = new System.Windows.Forms.TabPage();
-            this.medicineQuantityProject = new System.Windows.Forms.Button();
+            this.medicineDepletionProjection = new System.Windows.Forms.Button();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -91,28 +91,28 @@ namespace MedicineTracking
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(6, 27);
+            this.label1.Location = new System.Drawing.Point(6, 26);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(63, 13);
+            this.label1.Size = new System.Drawing.Size(92, 13);
             this.label1.TabIndex = 4;
-            this.label1.Text = "Date range:";
+            this.label1.Text = "Query date range:";
             // 
             // dateTimePicker1
             // 
-            this.dateTimePicker1.Location = new System.Drawing.Point(120, 21);
+            this.dateTimePicker1.Location = new System.Drawing.Point(140, 20);
             this.dateTimePicker1.Name = "dateTimePicker1";
-            this.dateTimePicker1.Size = new System.Drawing.Size(210, 20);
+            this.dateTimePicker1.Size = new System.Drawing.Size(200, 20);
             this.dateTimePicker1.TabIndex = 5;
             // 
-            // patientInventoryForecast
+            // medicineDecrement
             // 
-            this.patientInventoryForecast.Location = new System.Drawing.Point(336, 74);
-            this.patientInventoryForecast.Name = "patientInventoryForecast";
-            this.patientInventoryForecast.Size = new System.Drawing.Size(210, 23);
-            this.patientInventoryForecast.TabIndex = 6;
-            this.patientInventoryForecast.Text = "Patient inventory forecast";
-            this.patientInventoryForecast.UseVisualStyleBackColor = true;
-            this.patientInventoryForecast.Click += new System.EventHandler(this.patientInventoryForecast_Click);
+            this.medicineDecrement.Location = new System.Drawing.Point(346, 74);
+            this.medicineDecrement.Name = "medicineDecrement";
+            this.medicineDecrement.Size = new System.Drawing.Size(200, 23);
+            this.medicineDecrement.TabIndex = 6;
+            this.medicineDecrement.Text = "Medicine decrement";
+            this.medicineDecrement.UseVisualStyleBackColor = true;
+            this.medicineDecrement.Click += new System.EventHandler(this.medicineDecrement_Click);
             // 
             // button1
             // 
@@ -136,9 +136,9 @@ namespace MedicineTracking
             // 
             // dateTimePicker2
             // 
-            this.dateTimePicker2.Location = new System.Drawing.Point(336, 21);
+            this.dateTimePicker2.Location = new System.Drawing.Point(346, 20);
             this.dateTimePicker2.Name = "dateTimePicker2";
-            this.dateTimePicker2.Size = new System.Drawing.Size(210, 20);
+            this.dateTimePicker2.Size = new System.Drawing.Size(200, 20);
             this.dateTimePicker2.TabIndex = 9;
             // 
             // tabControl1
@@ -169,10 +169,10 @@ namespace MedicineTracking
             // 
             // tabPage1
             // 
-            this.tabPage1.Controls.Add(this.medicineQuantityProject);
+            this.tabPage1.Controls.Add(this.medicineDepletionProjection);
             this.tabPage1.Controls.Add(this.dateTimePicker1);
             this.tabPage1.Controls.Add(this.dateTimePicker2);
-            this.tabPage1.Controls.Add(this.patientInventoryForecast);
+            this.tabPage1.Controls.Add(this.medicineDecrement);
             this.tabPage1.Controls.Add(this.label1);
             this.tabPage1.Location = new System.Drawing.Point(4, 22);
             this.tabPage1.Name = "tabPage1";
@@ -182,15 +182,15 @@ namespace MedicineTracking
             this.tabPage1.Text = "Medicine tracking";
             this.tabPage1.UseVisualStyleBackColor = true;
             // 
-            // medicineQuantityProject
+            // medicineDepletionProjection
             // 
-            this.medicineQuantityProject.Location = new System.Drawing.Point(336, 103);
-            this.medicineQuantityProject.Name = "medicineQuantityProject";
-            this.medicineQuantityProject.Size = new System.Drawing.Size(210, 23);
-            this.medicineQuantityProject.TabIndex = 10;
-            this.medicineQuantityProject.Text = "Medicine quantity project";
-            this.medicineQuantityProject.UseVisualStyleBackColor = true;
-            this.medicineQuantityProject.Click += new System.EventHandler(this.medicineQuantityProject_Click);
+            this.medicineDepletionProjection.Location = new System.Drawing.Point(346, 103);
+            this.medicineDepletionProjection.Name = "medicineDepletionProjection";
+            this.medicineDepletionProjection.Size = new System.Drawing.Size(200, 23);
+            this.medicineDepletionProjection.TabIndex = 10;
+            this.medicineDepletionProjection.Text = "Medicine depletion projection";
+            this.medicineDepletionProjection.UseVisualStyleBackColor = true;
+            this.medicineDepletionProjection.Click += new System.EventHandler(this.medicineDepletionProjection_Click);
             // 
             // menuStrip1
             // 
@@ -247,11 +247,11 @@ namespace MedicineTracking
             this.tabPage0.PerformLayout();
             this.tabPage1.ResumeLayout(false);
             this.tabPage1.PerformLayout();
-            this.tabControl1.SelectedTab = this.tabPage1;
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
+
         }
 
 
@@ -261,7 +261,7 @@ namespace MedicineTracking
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.DateTimePicker dateTimePicker1;
-        private System.Windows.Forms.Button patientInventoryForecast;
+        private System.Windows.Forms.Button medicineDecrement;
         private System.Windows.Forms.FolderBrowserDialog folderBrowserDialog1;
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Button button2;
@@ -269,7 +269,7 @@ namespace MedicineTracking
         private System.Windows.Forms.TabControl tabControl1;
         private System.Windows.Forms.TabPage tabPage0;
         private System.Windows.Forms.TabPage tabPage1;
-        private System.Windows.Forms.Button medicineQuantityProject;
+        private System.Windows.Forms.Button medicineDepletionProjection;
         private System.Windows.Forms.MenuStrip menuStrip1;
         private System.Windows.Forms.ToolStripMenuItem fileToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem hToolStripMenuItem;

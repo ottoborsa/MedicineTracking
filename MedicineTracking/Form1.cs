@@ -1,6 +1,9 @@
 ﻿
+
 using System;
 using System.Windows.Forms;
+
+using MedicineTracking.Core;
 
 
 namespace MedicineTracking
@@ -9,16 +12,17 @@ namespace MedicineTracking
     {
 
 
-        public const string DefaultInventoryFolder = "x:\\REPOS\\000\\patient inventory\\";
+        public const string DefaultInventoryFolder = "x:\\REPOS\\_test_medicine_database\\patient inventory\\";
 
-        public const string DefaultDosageFolder = "x:\\REPOS\\000\\patient dosage\\";
+        public const string DefaultDosageFolder = "x:\\REPOS\\_test_medicine_database\\patient dosage\\";
 
 
 
         public Form1()
         {
             InitializeComponent();
-            Text = nameof(MedicineTracking);
+            Text = nameof(Common);
+            tabControl1.SelectedTab = tabPage1;
         }
 
         private void Form1_Load(object sender, EventArgs e)
@@ -28,9 +32,9 @@ namespace MedicineTracking
         }
 
 
-        private void patientInventoryForecast_Click(object sender, EventArgs e)
+        private void medicineDecrement_Click(object sender, EventArgs e)
         {
-            MedicineTracking.GenerateInventoryForecast(
+            Common.MedicineDecrementQuery(
                 PatientInventoryFolderTextBox.Text,
                 PatientDosageFolderTextBox.Text,
                 dateTimePicker1.Value,
@@ -38,9 +42,14 @@ namespace MedicineTracking
             );
         }
 
-        private void medicineQuantityProject_Click(object sender, EventArgs e)
+        private void medicineDepletionProjection_Click(object sender, EventArgs e)
         {
-
+            Common.MedicineDepletionProjectionQuery(
+                PatientInventoryFolderTextBox.Text,
+                PatientDosageFolderTextBox.Text,
+                dateTimePicker1.Value,
+                dateTimePicker2.Value
+            );
         }
 
 

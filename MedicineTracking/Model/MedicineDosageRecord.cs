@@ -7,19 +7,22 @@ namespace MedicineTracking.Model
     {
         public string MedicineId { get; private set; }
 
-        public int DailyDosage { get; private set; }
+        public Table.PatientDosage.DosageType DosageType { get; private set; }
+
+        public string DosageTypeParameter { get; private set; }
 
         public DateTime ValidFrom { get; private set; }
 
         public DateTime ValidTo { get; private set; }
 
 
-        public MedicineDosageRecord(string medicineId, int dosage, DateTime from, DateTime to)
+        public MedicineDosageRecord(string medicineId, Table.PatientDosage.DosageType dosageType, string dosageTypeParameter, DateTime validFrom, DateTime validTo)
         {
             MedicineId = medicineId;
-            DailyDosage = dosage;
-            ValidFrom = from;
-            ValidTo = to;
+            DosageType = dosageType;
+            DosageTypeParameter = dosageTypeParameter;
+            ValidFrom = validFrom;
+            ValidTo = validTo;
         }
     }
 }

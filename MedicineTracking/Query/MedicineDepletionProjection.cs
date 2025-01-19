@@ -17,7 +17,7 @@ namespace MedicineTracking.Query
 
         static string patient_name = nameof(patient_name);
 
-        static string last_positive_amount_day = nameof(last_positive_amount_day);
+        static string depletion_day = nameof(depletion_day);
 
         public static string[] Signature { get; private set; } = new string[]
         {
@@ -25,7 +25,7 @@ namespace MedicineTracking.Query
             patient_name,
             Table.PatientInventory.medicine_id,
             Table.PatientInventory.medicine_name,
-            last_positive_amount_day
+            depletion_day
         };
 
 
@@ -44,7 +44,7 @@ namespace MedicineTracking.Query
                 foreach (PatientInventoryRecord inventoryRecord in patient.PatientInventoryRecords)
                 {
 
-                    DateTime lastPositiveAmountDay = DateTime.Parse(DateTools.ForeverDateString);
+                    DateTime depletionDay = DateTime.Parse(DateTools.ForeverDateString);
                     decimal amount = inventoryRecord.MedicineCount;
 
                     // iterate on days
@@ -89,7 +89,7 @@ namespace MedicineTracking.Query
 
                         if (amount <= 0)
                         {
-                            lastPositiveAmountDay = day.AddDays(-1);
+                            depletionDay = day.AddDays(-1);
                             break;
                         }
                     }
@@ -100,7 +100,7 @@ namespace MedicineTracking.Query
                         patient.PatientName,
                         inventoryRecord.MedicineId,
                         inventoryRecord.MedicineName,
-                        lastPositiveAmountDay.ToString(DateTools.DayPattern),
+                        depletionDay.ToString(DateTools.DayPattern),
                     });
                 }
             }

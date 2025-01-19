@@ -16,7 +16,13 @@ namespace MedicineTracking.Model
         public DateTime ValidTo { get; private set; }
 
 
-        public MedicineDosageRecord(string medicineId, Table.PatientDosage.DosageType dosageType, string dosageTypeParameter, DateTime validFrom, DateTime validTo)
+        public MedicineDosageRecord(
+            string medicineId,
+            Table.PatientDosage.DosageType dosageType,
+            string dosageTypeParameter,
+            DateTime validFrom,
+            DateTime validTo
+        )
         {
             MedicineId = medicineId;
             DosageType = dosageType;

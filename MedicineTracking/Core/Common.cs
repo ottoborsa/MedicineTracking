@@ -16,8 +16,6 @@ namespace MedicineTracking.Core
         public const string FileExtension = "csv";
 
 
-
-
         private static Dictionary<string, string> GetFolderContent(string folder)
         {
             Dictionary<string, string> result = new Dictionary<string, string>();
@@ -30,21 +28,13 @@ namespace MedicineTracking.Core
             return result;
         }
 
-
-
         public static void MedicineDecrementQuery(string inventoryFolder, string dosageFolder, DateTime dateFrom, DateTime dateTo)
         {
             List<PatientInventory> patientInventories = Table.PatientInventory.Parse(GetFolderContent(inventoryFolder));
-
-
-
-
             List<MedicineDosage> medicineDosages = Table.PatientDosage.Parse(GetFolderContent(dosageFolder));
 
 
-
-            ;
-
+            CsvParser.Matrix result = Query.MedicineDecrement.GetResult(patientInventories, medicineDosages);
 
         }
 
@@ -52,10 +42,11 @@ namespace MedicineTracking.Core
 
         public static void MedicineDepletionProjectionQuery(string inventoryFolder, string dosageFolder, DateTime dateFrom, DateTime dateTo)
         {
-            //List<PatientInventory> patientInventories = ParsePatientInventory(GetFolderContent(inventoryFolder));
-            //List<MedicineDosage> medicineDosages = ParsePatientDosage(GetFolderContent(dosageFolder));
+            List<PatientInventory> patientInventories = Table.PatientInventory.Parse(GetFolderContent(inventoryFolder));
+            List<MedicineDosage> medicineDosages = Table.PatientDosage.Parse(GetFolderContent(dosageFolder));
 
 
+            CsvParser.Matrix result = Query.MedicineDepletionProjection.GetResult(patientInventories, medicineDosages);
 
         }
     }

@@ -1,6 +1,9 @@
 ﻿
 
 
+using MedicineTracking.Model;
+using System.Collections.Generic;
+
 namespace MedicineTracking.Query
 {
     internal static class MedicineDepletionProjection
@@ -21,5 +24,14 @@ namespace MedicineTracking.Query
         // Tehát szeretném azt látni, mikor fogy el, naptári napokon
 
 
+
+        public static CsvParser.Matrix GetResult(List<PatientInventory> patientInventories, List<MedicineDosage> medicineDosages)
+        {
+
+
+
+
+            return new CsvParser.Matrix(Signature);
+        }
     }
 }

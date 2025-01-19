@@ -25,6 +25,8 @@ namespace MedicineTracking.Table
 
         private static char FileNameSeparator = '_';
 
+        private static char FileExtensionSeparator = '.';
+
 
 
 
@@ -58,7 +60,7 @@ namespace MedicineTracking.Table
                 string fileContent = file.Value;
 
                 string patientName = fileName.Split(FileNameSeparator)[0];
-                string patientId = fileName.Split(FileNameSeparator)[1];
+                string patientId = fileName.Split(FileNameSeparator)[1].Split(FileExtensionSeparator)[0];
 
                 CsvParser.Matrix dosageMatrix = CsvParser.CsvParser.Parse(fileContent);
 

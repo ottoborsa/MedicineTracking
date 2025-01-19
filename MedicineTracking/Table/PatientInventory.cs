@@ -10,14 +10,19 @@ namespace MedicineTracking.Table
 
         private static char FileNameSeparator = '_';
 
+        private static char FileExtensionSeparator = '.';
+
+        private static char DynamicColumnNameSeparator = '_';
+
+
 
         public const string medicine_id = nameof(medicine_id);
 
         public const string medicine_name = nameof(medicine_name);
 
-        public const string inventory_prefix = "inventory_";
+        public const string inventory_prefix = "inventory";
 
-        public const string increment_prefix = "increment_";
+        public const string increment_prefix = "increment";
 
 
 
@@ -36,7 +41,7 @@ namespace MedicineTracking.Table
                 string fileContent = file.Value;
 
                 string patientName = fileName.Split(FileNameSeparator)[0];
-                string patientId = fileName.Split(FileNameSeparator)[1].Split('.')[0];
+                string patientId = fileName.Split(FileNameSeparator)[1].Split(FileExtensionSeparator)[0];
 
                 CsvParser.Matrix inventoryMatrix = CsvParser.CsvParser.Parse(fileContent);
 
@@ -62,14 +67,14 @@ namespace MedicineTracking.Table
                     string medicineId = inventoryMatrix.GetValue(medicine_id, i);
                     string medicineName = inventoryMatrix.GetValue(medicine_name, i);
 
-                    DateTime inventoryDate = DateTime.Parse(lastInventoryColumn.Split('_')[1]);
+                    DateTime inventoryDate = DateTime.Parse(lastInventoryColumn.Split(DynamicColumnNameSeparator)[1]);
                     float medicineCount = Single.Parse(inventoryMatrix.GetValue(lastInventoryColumn, i));
 
                     Dictionary<DateTime, float> incrementations = new Dictionary<DateTime, float>();
 
                     for (int j = 0; j < incrementColumns.Count; j++)
                     {
-                        DateTime incrementDate = DateTime.Parse(incrementColumns[j].Split('_')[1]);
+                        DateTime incrementDate = DateTime.Parse(incrementColumns[j].Split(DynamicColumnNameSeparator)[1]);
 
                         if (incrementDate >= inventoryDate)
                         {

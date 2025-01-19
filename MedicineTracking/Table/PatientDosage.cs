@@ -13,7 +13,7 @@ namespace MedicineTracking.Table
 
         public enum DosageType
         {
-            daily,           // dosage type parameter: number value (double) per day
+            daily,           // dosage type parameter: number value (float) per day
             every_other_day,
             on_even_days,
             on_odd_days,
@@ -70,10 +70,11 @@ namespace MedicineTracking.Table
                     DosageType dosageType = (DosageType)Enum.Parse(typeof(DosageType), dosageMatrix.GetValue(dosage_type_code, i));
                     string dosageParam = dosageMatrix.GetValue(dosage_type_parameter, i);
                     DateTime validFrom = DateTime.Parse(dosageMatrix.GetValue(valid_from, i));
-                    DateTime validTo = DateTime.Parse(String.IsNullOrEmpty(dosageMatrix.GetValue(valid_to, i)) ? "2100-12-31" : dosageMatrix.GetValue(valid_to, i));
+                    DateTime validTo = DateTime.Parse(String.IsNullOrEmpty(dosageMatrix.GetValue(valid_to, i)) ? "2099-12-31" : dosageMatrix.GetValue(valid_to, i));
 
                     list.Add(new MedicineDosageRecord(medicineId, dosageType, dosageParam, validFrom, validTo));
                 }
+
 
                 MedicineDosage patient = new MedicineDosage(patientId, patientName, list);
                 result.Add(patient);

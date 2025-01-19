@@ -1,8 +1,7 @@
 ﻿
 
-
-
 using MedicineTracking.Model;
+using System;
 using System.Collections.Generic;
 
 namespace MedicineTracking.Query
@@ -23,7 +22,7 @@ namespace MedicineTracking.Query
         // Tehát azt szeretném tudni, hogy az egyes gyógyszerfajtákból mennyi fogyott egy hónapban.
 
 
-        public static CsvParser.Matrix GetResult(List<PatientInventory> patientInventories, List<MedicineDosage> medicineDosages)
+        public static CsvParser.Matrix GetResult(DateTime dateFrom, DateTime dateTo, List<PatientInventory> patientInventories, List<MedicineDosage> medicineDosages)
         {
 
 

@@ -91,8 +91,8 @@ namespace MedicineTracking.Table
                     list.Add(new PatientInventoryRecord(medicineId, medicineName, inventoryDate, medicineCount, incrementations));
                 }
 
-                Model.PatientInventory patient = new Model.PatientInventory(patientId, patientName, list);
 
+                Model.PatientInventory patient = new Model.PatientInventory(patientId, patientName, list);
                 result.Add(patient);
             }
 

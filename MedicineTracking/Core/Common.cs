@@ -34,7 +34,7 @@ namespace MedicineTracking.Core
             List<MedicineDosage> medicineDosages = Table.PatientDosage.Parse(GetFolderContent(dosageFolder));
 
 
-            CsvParser.Matrix result = Query.MedicineDecrement.GetResult(patientInventories, medicineDosages);
+            CsvParser.Matrix result = Query.MedicineDecrement.GetResult(dateFrom, dateTo, patientInventories, medicineDosages);
 
         }
 
@@ -46,7 +46,7 @@ namespace MedicineTracking.Core
             List<MedicineDosage> medicineDosages = Table.PatientDosage.Parse(GetFolderContent(dosageFolder));
 
 
-            CsvParser.Matrix result = Query.MedicineDepletionProjection.GetResult(patientInventories, medicineDosages);
+            CsvParser.Matrix result = Query.MedicineDepletionProjection.GetResult(dateFrom, dateTo, patientInventories, medicineDosages);
 
         }
     }

@@ -29,26 +29,24 @@ namespace MedicineTracking.Core
             return result;
         }
 
-        public static void MedicineDecrementQuery(string inventoryFolder, string dosageFolder, DateTime dateFrom, DateTime dateTo)
+        public static string MedicineDecrementQuery(string inventoryFolder, string dosageFolder, DateTime dateFrom, DateTime dateTo)
         {
             List<PatientInventory> patientInventories = Table.PatientInventory.Parse(GetFolderContent(inventoryFolder));
             List<MedicineDosage> medicineDosages = Table.PatientDosage.Parse(GetFolderContent(dosageFolder));
-
-
 
             Matrix result = Query.MedicineDecrement.GetResult(dateFrom, dateTo, patientInventories, medicineDosages);
+
+            return CsvParser.FromMatrix(result);
         }
 
-
-
-        public static void MedicineDepletionProjectionQuery(string inventoryFolder, string dosageFolder, DateTime dateFrom, DateTime dateTo)
+        public static string MedicineDepletionProjectionQuery(string inventoryFolder, string dosageFolder, DateTime dateFrom, DateTime dateTo)
         {
             List<PatientInventory> patientInventories = Table.PatientInventory.Parse(GetFolderContent(inventoryFolder));
             List<MedicineDosage> medicineDosages = Table.PatientDosage.Parse(GetFolderContent(dosageFolder));
 
-
-
             Matrix result = Query.MedicineDepletionProjection.GetResult(patientInventories, medicineDosages);
+
+            return CsvParser.FromMatrix(result);
         }
     }
 }

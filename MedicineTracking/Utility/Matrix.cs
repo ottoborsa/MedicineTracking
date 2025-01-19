@@ -29,6 +29,12 @@ namespace MedicineTracking.Utility
             Rows.Add(Rows.Count, row);
         }
 
+        public string[] GetRow(int rowNr)
+        {
+            return Rows[rowNr];
+        }
+
+
 
 
 

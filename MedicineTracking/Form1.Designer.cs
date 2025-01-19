@@ -46,6 +46,7 @@ namespace MedicineTracking
             this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.hToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.releaseInfoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
             this.tabControl1.SuspendLayout();
             this.tabPage0.SuspendLayout();
             this.tabPage1.SuspendLayout();
@@ -229,8 +230,9 @@ namespace MedicineTracking
             // releaseInfoToolStripMenuItem
             // 
             this.releaseInfoToolStripMenuItem.Name = "releaseInfoToolStripMenuItem";
-            this.releaseInfoToolStripMenuItem.Size = new System.Drawing.Size(137, 22);
+            this.releaseInfoToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.releaseInfoToolStripMenuItem.Text = "Release info";
+            this.releaseInfoToolStripMenuItem.Click += new System.EventHandler(this.releaseInfoToolStripMenuItem_Click);
             // 
             // Form1
             // 
@@ -275,6 +277,7 @@ namespace MedicineTracking
         private System.Windows.Forms.ToolStripMenuItem hToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem exitToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem releaseInfoToolStripMenuItem;
+        private System.Windows.Forms.SaveFileDialog saveFileDialog1;
     }
 }
 

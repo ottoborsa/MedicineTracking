@@ -100,7 +100,7 @@ namespace MedicineTracking.Query
                         patient.PatientName,
                         inventoryRecord.MedicineId,
                         inventoryRecord.MedicineName,
-                        lastPositiveAmountDay.ToString(),
+                        lastPositiveAmountDay.ToString(DateTools.DayPattern),
                     });
                 }
             }

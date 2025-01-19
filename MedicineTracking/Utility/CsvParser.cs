@@ -40,5 +40,17 @@ namespace MedicineTracking.Utility
 
             return result;
         }
+
+        public static string FromMatrix(Matrix matrix)
+        {
+            string fileContent = String.Join(CulumnSeparator.ToString(), matrix.Signature) + LineSeparator;
+
+            for (int i = 0; i < matrix.GetSize(); i++)
+            {
+                fileContent += String.Join(CulumnSeparator.ToString(), matrix.GetRow(i)) + LineSeparator;
+            }
+
+            return fileContent;
+        }
     }
 }

@@ -42,33 +42,39 @@ namespace MedicineTracking.Query
             }
 
 
+            // iterate on result (medicines)
             for (int i = 0; i < result.GetSize(); i++)
             {
                 string medicineId = result.GetValue(Table.PatientInventory.medicine_id, i);
 
-
+                // iterate on dosage of patients
                 foreach (MedicineDosage dosage in medicineDosages)
                 {
-                    foreach (MedicineDosageRecord dosageRcord in dosage.MedicineDosageRecords)
+
+                    // iterate on days of the query
+                    foreach (DateTime day in DateTools.EachDay(dateFrom, dateTo))
                     {
+
+                        // iterate on dosage records
+                        foreach (MedicineDosageRecord dosageRecord in dosage.MedicineDosageRecords)
+                        {
+
+                            if (
+                                dosageRecord.MedicineId == medicineId &&
+                                dosageRecord.ValidFrom <= day &&
+                                dosageRecord.ValidTo >= day
+                               )
+                            {
+
+                            }
+                        }
                     }
                 }
             }
 
 
-            foreach (DateTime day in DateTools.EachDay(dateFrom, dateTo))
-            {
 
-            }
-
-
-
-                return result;
+            return result;
         }
-
-
-
-
-
     }
 }

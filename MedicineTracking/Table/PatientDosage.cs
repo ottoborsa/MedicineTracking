@@ -17,7 +17,7 @@ namespace MedicineTracking.Table
 
         public enum DosageType
         {
-            daily,           // dosage type parameter: number value (decimal) per day
+            daily,
             every_other_day,
             on_even_days,
             on_odd_days,

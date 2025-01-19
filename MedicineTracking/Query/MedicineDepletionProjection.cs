@@ -49,15 +49,22 @@ namespace MedicineTracking.Query
                     decimal sum = 0;
 
 
+                    // iterate on days
                     foreach (DateTime day in DateTools.EachDay(inventoryRecord.InventoryDate, DateTime.Parse(DateTools.ForeverDateString)))
                     {
+
+
+                        // iterate in incrementations
                         foreach (KeyValuePair<DateTime, decimal> incrementation in inventoryRecord.Incrementations.Where(i => i.Key.Day == day.Day).ToList())
                         {
                             sum += incrementation.Value;
                         }
 
+                        // (only one step of iteration for the given patient)
                         foreach (MedicineDosage dosage in medicineDosages.Where(d => d.PatientId == patient.PatientId).ToList())
                         {
+
+                            // iterate on dosage records
                             foreach (MedicineDosageRecord dosageRecord in dosage.MedicineDosageRecords)
                             {
 
@@ -94,7 +101,7 @@ namespace MedicineTracking.Query
                         patient.PatientName,
                         inventoryRecord.MedicineId,
                         inventoryRecord.MedicineName,
-                        ""
+                        sum.ToString().Replace(',', '.')
                     });
                 }
             }

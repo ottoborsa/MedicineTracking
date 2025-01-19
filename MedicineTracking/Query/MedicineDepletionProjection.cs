@@ -1,6 +1,7 @@
 ﻿
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 using MedicineTracking.Utility;
 using MedicineTracking.Model;
@@ -16,7 +17,7 @@ namespace MedicineTracking.Query
 
         static string patient_name = nameof(patient_name);
 
-        static string zero_quantity_threshold_date = nameof(zero_quantity_threshold_date);
+        static string depletion_date = nameof(depletion_date);
 
         public static string[] Signature { get; private set; } = new string[]
         {
@@ -24,7 +25,7 @@ namespace MedicineTracking.Query
             patient_name,
             Table.PatientInventory.medicine_id,
             Table.PatientInventory.medicine_name,
-            zero_quantity_threshold_date
+            depletion_date
         };
 
 
@@ -43,34 +44,57 @@ namespace MedicineTracking.Query
             {
 
                 // iterate on inventory records
-                foreach (PatientInventoryRecord record in patient.PatientInventoryRecords)
+                foreach (PatientInventoryRecord inventoryRecord in patient.PatientInventoryRecords)
                 {
-                    string depletionDate = "";
+                    decimal sum = 0;
 
 
-
-                    foreach (DateTime day in DateTools.EachDay(record.InventoryDate, DateTime.Parse(DateTools.ForeverDateString)))
+                    foreach (DateTime day in DateTools.EachDay(inventoryRecord.InventoryDate, DateTime.Parse(DateTools.ForeverDateString)))
                     {
+                        foreach (KeyValuePair<DateTime, decimal> incrementation in inventoryRecord.Incrementations.Where(i => i.Key.Day == day.Day).ToList())
+                        {
+                            sum += incrementation.Value;
+                        }
+
+                        foreach (MedicineDosage dosage in medicineDosages.Where(d => d.PatientId == patient.PatientId).ToList())
+                        {
+                            foreach (MedicineDosageRecord dosageRecord in dosage.MedicineDosageRecords)
+                            {
+
+                                if (
+                                    dosageRecord.MedicineId == inventoryRecord.MedicineId &&
+                                    dosageRecord.ValidFrom <= day &&
+                                    dosageRecord.ValidTo >= day
+                                    )
+                                {
+                                    decimal value = Common.GetDosageOfDay(
+                                        day,
+                                        dosageRecord.ValidFrom,
+                                        dosageRecord.DosageType,
+                                        dosageRecord.DosageValue,
+                                        dosageRecord.DosageTypeParameter
+                                    );
+
+                                    if (value != 0)
+                                    {
+                                        sum += value;
+                                    }
+                                }
+                            }
+                        }
+
+                        ;
 
                     }
-
-
-
-
-
-
-
-
-
 
 
                     result.AddRow(new string[]
                     {
                         patient.PatientId,
                         patient.PatientName,
-                        record.MedicineId,
-                        record.MedicineName,
-                        depletionDate
+                        inventoryRecord.MedicineId,
+                        inventoryRecord.MedicineName,
+                        ""
                     });
                 }
             }

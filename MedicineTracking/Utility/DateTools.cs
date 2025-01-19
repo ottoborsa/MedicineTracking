@@ -8,7 +8,7 @@ namespace MedicineTracking.Utility
     {
 
 
-        public static string ForeverDateString { get; private set; } = "2099-12-31";
+        public static string ForeverDateString { get; private set; } = "2026-12-31"; //"2099-12-31";
 
 
         public static IEnumerable<DateTime> EachDay(DateTime from, DateTime to)

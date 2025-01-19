@@ -41,6 +41,7 @@ namespace MedicineTracking
             this.tabPage0 = new System.Windows.Forms.TabPage();
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.medicineDepletionProjection = new System.Windows.Forms.Button();
+            this.tabPage2 = new System.Windows.Forms.TabPage();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -50,6 +51,7 @@ namespace MedicineTracking
             this.tabControl1.SuspendLayout();
             this.tabPage0.SuspendLayout();
             this.tabPage1.SuspendLayout();
+            this.tabPage2.SuspendLayout();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -107,11 +109,11 @@ namespace MedicineTracking
             // 
             // medicineDecrement
             // 
-            this.medicineDecrement.Location = new System.Drawing.Point(346, 74);
+            this.medicineDecrement.Location = new System.Drawing.Point(346, 103);
             this.medicineDecrement.Name = "medicineDecrement";
             this.medicineDecrement.Size = new System.Drawing.Size(200, 23);
             this.medicineDecrement.TabIndex = 6;
-            this.medicineDecrement.Text = "Medicine decrement";
+            this.medicineDecrement.Text = "Query";
             this.medicineDecrement.UseVisualStyleBackColor = true;
             this.medicineDecrement.Click += new System.EventHandler(this.medicineDecrement_Click);
             // 
@@ -146,6 +148,7 @@ namespace MedicineTracking
             // 
             this.tabControl1.Controls.Add(this.tabPage0);
             this.tabControl1.Controls.Add(this.tabPage1);
+            this.tabControl1.Controls.Add(this.tabPage2);
             this.tabControl1.Location = new System.Drawing.Point(12, 41);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
@@ -170,7 +173,6 @@ namespace MedicineTracking
             // 
             // tabPage1
             // 
-            this.tabPage1.Controls.Add(this.medicineDepletionProjection);
             this.tabPage1.Controls.Add(this.dateTimePicker1);
             this.tabPage1.Controls.Add(this.dateTimePicker2);
             this.tabPage1.Controls.Add(this.medicineDecrement);
@@ -180,8 +182,19 @@ namespace MedicineTracking
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
             this.tabPage1.Size = new System.Drawing.Size(552, 132);
             this.tabPage1.TabIndex = 0;
-            this.tabPage1.Text = "Medicine tracking";
+            this.tabPage1.Text = "Medicine decrement";
             this.tabPage1.UseVisualStyleBackColor = true;
+            // 
+            // tabPage2
+            // 
+            this.tabPage2.Controls.Add(this.medicineDepletionProjection);
+            this.tabPage2.Location = new System.Drawing.Point(4, 22);
+            this.tabPage2.Name = "tabPage2";
+            this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage2.Size = new System.Drawing.Size(552, 132);
+            this.tabPage2.TabIndex = 2;
+            this.tabPage2.Text = "Medicine depletion projection";
+            this.tabPage2.UseVisualStyleBackColor = true;
             // 
             // medicineDepletionProjection
             // 
@@ -189,7 +202,7 @@ namespace MedicineTracking
             this.medicineDepletionProjection.Name = "medicineDepletionProjection";
             this.medicineDepletionProjection.Size = new System.Drawing.Size(200, 23);
             this.medicineDepletionProjection.TabIndex = 10;
-            this.medicineDepletionProjection.Text = "Medicine depletion projection";
+            this.medicineDepletionProjection.Text = "Query";
             this.medicineDepletionProjection.UseVisualStyleBackColor = true;
             this.medicineDepletionProjection.Click += new System.EventHandler(this.medicineDepletionProjection_Click);
             // 
@@ -230,7 +243,7 @@ namespace MedicineTracking
             // releaseInfoToolStripMenuItem
             // 
             this.releaseInfoToolStripMenuItem.Name = "releaseInfoToolStripMenuItem";
-            this.releaseInfoToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.releaseInfoToolStripMenuItem.Size = new System.Drawing.Size(137, 22);
             this.releaseInfoToolStripMenuItem.Text = "Release info";
             this.releaseInfoToolStripMenuItem.Click += new System.EventHandler(this.releaseInfoToolStripMenuItem_Click);
             // 
@@ -249,6 +262,7 @@ namespace MedicineTracking
             this.tabPage0.PerformLayout();
             this.tabPage1.ResumeLayout(false);
             this.tabPage1.PerformLayout();
+            this.tabPage2.ResumeLayout(false);
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
             this.ResumeLayout(false);
@@ -278,6 +292,7 @@ namespace MedicineTracking
         private System.Windows.Forms.ToolStripMenuItem exitToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem releaseInfoToolStripMenuItem;
         private System.Windows.Forms.SaveFileDialog saveFileDialog1;
+        private System.Windows.Forms.TabPage tabPage2;
     }
 }
 

@@ -39,7 +39,7 @@ namespace MedicineTracking.Core
             return CsvParser.FromMatrix(result);
         }
 
-        public static string MedicineDepletionProjectionQuery(string inventoryFolder, string dosageFolder, DateTime dateFrom, DateTime dateTo)
+        public static string MedicineDepletionProjectionQuery(string inventoryFolder, string dosageFolder)
         {
             List<PatientInventory> patientInventories = Table.PatientInventory.Parse(GetFolderContent(inventoryFolder));
             List<MedicineDosage> medicineDosages = Table.PatientDosage.Parse(GetFolderContent(dosageFolder));

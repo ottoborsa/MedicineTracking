@@ -24,7 +24,7 @@ namespace MedicineTracking
         {
             InitializeComponent();
 
-            Text = nameof(Common);
+            Text = nameof(MedicineTracking);
             tabControl1.SelectedTab = tabPage1;
 
             dateTimePicker1.Value = new DateTime(DateTime.Now.Year, DateTime.Now.Month, 1);
@@ -58,9 +58,7 @@ namespace MedicineTracking
                 $"{GetNow()} - {nameof(Common.MedicineDepletionProjectionQuery)}",
                 Common.MedicineDepletionProjectionQuery(
                     PatientInventoryFolderTextBox.Text,
-                    PatientDosageFolderTextBox.Text,
-                    dateTimePicker1.Value,
-                    dateTimePicker2.Value
+                    PatientDosageFolderTextBox.Text
                 ),
                 Common.FileExtension
             );

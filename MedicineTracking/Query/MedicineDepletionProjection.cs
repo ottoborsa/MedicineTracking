@@ -12,13 +12,19 @@ namespace MedicineTracking.Query
     {
 
 
+        static string patient_id = nameof(patient_id);
+
+        static string patient_name = nameof(patient_name);
+
+        static string zero_quantity_threshold_date = nameof(zero_quantity_threshold_date);
+
         public static string[] Signature { get; private set; } = new string[]
         {
-            "patient_id",
-            "patient_name",
+            patient_id,
+            patient_name,
             Table.PatientInventory.medicine_id,
             Table.PatientInventory.medicine_name,
-            "zero_quantity_threshold_date"
+            zero_quantity_threshold_date
         };
 
 

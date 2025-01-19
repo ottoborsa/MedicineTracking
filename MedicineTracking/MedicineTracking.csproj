@@ -46,6 +46,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Query\Common.cs" />
     <Compile Include="Utility\DateTools.cs" />
     <Compile Include="Query\MedicineDepletionProjection.cs" />
     <Compile Include="Query\MedicineDecrement.cs" />

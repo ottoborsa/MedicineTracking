@@ -13,17 +13,20 @@ namespace MedicineTracking.Query
     {
 
 
+        static string quantity_decrement = nameof(quantity_decrement);
+
         public static string[] Signature = new string[]
         {
             Table.PatientInventory.medicine_id,
             Table.PatientInventory.medicine_name,
-            "quantity_decrement"
+            quantity_decrement
         };
 
 
 
-        // Tehát azt szeretném tudni, hogy az egyes gyógyszerfajtákból mennyi fogyott egy hónapban.
 
+
+        // Tehát azt szeretném tudni, hogy az egyes gyógyszerfajtákból mennyi fogyott egy hónapban.
 
         public static Matrix GetResult(DateTime dateFrom, DateTime dateTo, List<PatientInventory> patientInventories, List<MedicineDosage> medicineDosages)
         {
@@ -42,13 +45,13 @@ namespace MedicineTracking.Query
             }
 
 
-            // iterate on result (medicines)
+            // iterate on result Matrix (medicine records)
             for (int i = 0; i < result.GetSize(); i++)
             {
                 string medicineId = result.GetValue(Table.PatientInventory.medicine_id, i);
 
-                // iterate on dosage of patients
-                foreach (MedicineDosage dosage in medicineDosages)
+                // iterate on patients
+                foreach (MedicineDosage patient in medicineDosages)
                 {
 
                     // iterate on days of the query
@@ -56,7 +59,7 @@ namespace MedicineTracking.Query
                     {
 
                         // iterate on dosage records
-                        foreach (MedicineDosageRecord dosageRecord in dosage.MedicineDosageRecords)
+                        foreach (MedicineDosageRecord dosageRecord in patient.MedicineDosageRecords)
                         {
 
                             if (
@@ -65,14 +68,22 @@ namespace MedicineTracking.Query
                                 dosageRecord.ValidTo >= day
                                )
                             {
+                                Table.PatientDosage.DosageType dosageType = dosageRecord.DosageType;
+                                string dosageParam = dosageRecord.DosageTypeParameter;
 
+                                float value = Common.GetDosageOfDay(day, dosageRecord.ValidFrom, dosageType, dosageRecord.DosageValue, dosageParam);
+
+                                string decrementString = result.GetValue(quantity_decrement, i);
+                                decrementString = String.IsNullOrEmpty(decrementString) ? "0" : decrementString;
+                                float decrement = Single.Parse(decrementString);
+                                decrement += value;
+
+                                result.SetValue(quantity_decrement, i, decrement.ToString());
                             }
                         }
                     }
                 }
             }
-
-
 
             return result;
         }

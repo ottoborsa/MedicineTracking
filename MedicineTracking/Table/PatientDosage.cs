@@ -38,6 +38,8 @@ namespace MedicineTracking.Table
 
         public const string dosage_type_code = nameof(dosage_type_code);
 
+        public const string dosage_value = nameof(dosage_value);
+
         public const string dosage_type_parameter = nameof(dosage_type_parameter);
 
         public const string valid_from = nameof(valid_from);
@@ -70,11 +72,13 @@ namespace MedicineTracking.Table
                 {
                     string medicineId = dosageMatrix.GetValue(medicine_id, i);
                     DosageType dosageType = (DosageType)Enum.Parse(typeof(DosageType), dosageMatrix.GetValue(dosage_type_code, i));
+                    string dosageValueString = dosageMatrix.GetValue(dosage_value, i);
+                    float dosageValue = Single.Parse(String.IsNullOrEmpty(dosageValueString) ? "0" : dosageValueString);
                     string dosageParam = dosageMatrix.GetValue(dosage_type_parameter, i);
                     DateTime validFrom = DateTime.Parse(dosageMatrix.GetValue(valid_from, i));
                     DateTime validTo = DateTime.Parse(String.IsNullOrEmpty(dosageMatrix.GetValue(valid_to, i)) ? "2099-12-31" : dosageMatrix.GetValue(valid_to, i));
 
-                    list.Add(new MedicineDosageRecord(medicineId, dosageType, dosageParam, validFrom, validTo));
+                    list.Add(new MedicineDosageRecord(medicineId, dosageType, dosageValue, dosageParam, validFrom, validTo));
                 }
 
 

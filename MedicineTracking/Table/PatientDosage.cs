@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System;
 
 using MedicineTracking.Model;
+using MedicineTracking.Utility;
+
 
 namespace MedicineTracking.Table
 {
@@ -62,7 +64,7 @@ namespace MedicineTracking.Table
                 string patientName = fileName.Split(FileNameSeparator)[0];
                 string patientId = fileName.Split(FileNameSeparator)[1].Split(FileExtensionSeparator)[0];
 
-                CsvParser.Matrix dosageMatrix = CsvParser.CsvParser.Parse(fileContent);
+                Matrix dosageMatrix = CsvParser.Parse(fileContent);
 
                 for (int i = 0; i < dosageMatrix.GetSize(); i++)
                 {

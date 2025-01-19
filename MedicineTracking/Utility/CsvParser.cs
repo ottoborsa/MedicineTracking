@@ -1,7 +1,7 @@
 ﻿
 using System;
 
-namespace MedicineTracking.CsvParser
+namespace MedicineTracking.Utility
 {
     internal static class CsvParser
     {

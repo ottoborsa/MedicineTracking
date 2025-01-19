@@ -46,10 +46,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Utility\DateTools.cs" />
     <Compile Include="Query\MedicineDepletionProjection.cs" />
     <Compile Include="Query\MedicineDecrement.cs" />
-    <Compile Include="CsvParser\CsvParser.cs" />
-    <Compile Include="CsvParser\Matrix.cs" />
+    <Compile Include="Utility\CsvParser.cs" />
+    <Compile Include="Utility\Matrix.cs" />
     <Compile Include="Core\Common.cs" />
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>

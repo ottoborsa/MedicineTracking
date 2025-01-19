@@ -2,6 +2,9 @@
 using System.Collections.Generic;
 using System;
 
+using MedicineTracking.Utility;
+
+
 
 namespace MedicineTracking.Table
 {
@@ -43,7 +46,7 @@ namespace MedicineTracking.Table
                 string patientName = fileName.Split(FileNameSeparator)[0];
                 string patientId = fileName.Split(FileNameSeparator)[1].Split(FileExtensionSeparator)[0];
 
-                CsvParser.Matrix inventoryMatrix = CsvParser.CsvParser.Parse(fileContent);
+                Matrix inventoryMatrix = CsvParser.Parse(fileContent);
 
 
                 string[] signature = inventoryMatrix.Signature;

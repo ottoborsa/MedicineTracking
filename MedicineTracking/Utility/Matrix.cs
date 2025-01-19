@@ -2,7 +2,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace MedicineTracking.CsvParser
+namespace MedicineTracking.Utility
 {
     internal class Matrix
     {
@@ -32,6 +32,27 @@ namespace MedicineTracking.CsvParser
         public string GetValue(string columnName, int rowNr)
         {
             return Rows[rowNr][Array.FindIndex(Signature, name => name == columnName)];
+        }
+
+        public int GetIndex(string columnName, string value)
+        {
+            int result = -1;
+
+            for (int i = 0; i < Rows.Count; i++)
+            {
+                if (GetValue(columnName, i) == value)
+                {
+                    result = i;
+                    break;
+                }
+            }
+
+            return result;
+        }
+
+        public void SetValue(string columnName, int roWnr, string value)
+        {
+            // TODO
         }
     }
 }

@@ -78,7 +78,7 @@ namespace MedicineTracking.Table
                     decimal dosageValue = Decimal.Parse(String.IsNullOrEmpty(dosageValueString) ? "0" : dosageValueString, CultureInfo.InvariantCulture);
                     string dosageParam = dosageMatrix.GetValue(dosage_type_parameter, i);
                     DateTime validFrom = DateTime.Parse(dosageMatrix.GetValue(valid_from, i));
-                    DateTime validTo = DateTime.Parse(String.IsNullOrEmpty(dosageMatrix.GetValue(valid_to, i)) ? "2099-12-31" : dosageMatrix.GetValue(valid_to, i));
+                    DateTime validTo = DateTime.Parse(String.IsNullOrEmpty(dosageMatrix.GetValue(valid_to, i)) ? DateTools.ForeverDateString : dosageMatrix.GetValue(valid_to, i));
 
                     list.Add(new MedicineDosageRecord(medicineId, dosageType, dosageValue, dosageParam, validFrom, validTo));
                 }

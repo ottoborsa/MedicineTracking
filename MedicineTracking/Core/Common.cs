@@ -36,7 +36,6 @@ namespace MedicineTracking.Core
 
             Matrix result = Query.MedicineDecrement.GetResult(dateFrom, dateTo, patientInventories, medicineDosages);
 
-
         }
 
 
@@ -47,8 +46,11 @@ namespace MedicineTracking.Core
             List<MedicineDosage> medicineDosages = Table.PatientDosage.Parse(GetFolderContent(dosageFolder));
 
 
-            Matrix result = Query.MedicineDepletionProjection.GetResult(dateFrom, dateTo, patientInventories, medicineDosages);
+            Matrix result = Query.MedicineDepletionProjection.GetResult(patientInventories, medicineDosages);
 
+
+
+            ;
         }
     }
 }

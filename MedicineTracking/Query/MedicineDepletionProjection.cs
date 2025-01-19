@@ -33,13 +33,49 @@ namespace MedicineTracking.Query
 
 
 
-        public static Matrix GetResult(DateTime dateFrom, DateTime dateTo, List<PatientInventory> patientInventories, List<MedicineDosage> medicineDosages)
+        public static Matrix GetResult(List<PatientInventory> patientInventories, List<MedicineDosage> medicineDosages)
         {
+            Matrix result = new Matrix(Signature);
+
+
+            // iterate on patients
+            foreach (PatientInventory patient in patientInventories)
+            {
+
+                // iterate on inventory records
+                foreach (PatientInventoryRecord record in patient.PatientInventoryRecords)
+                {
+                    string depletionDate = "";
+
+
+
+                    foreach (DateTime day in DateTools.EachDay(record.InventoryDate, DateTime.Parse(DateTools.ForeverDateString)))
+                    {
+
+                    }
 
 
 
 
-            return new Matrix(Signature);
+
+
+
+
+
+
+
+                    result.AddRow(new string[]
+                    {
+                        patient.PatientId,
+                        patient.PatientName,
+                        record.MedicineId,
+                        record.MedicineName,
+                        depletionDate
+                    });
+                }
+            }
+
+            return result;
         }
     }
 }

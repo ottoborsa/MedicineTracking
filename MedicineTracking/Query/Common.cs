@@ -1,6 +1,7 @@
 ﻿
 using System;
 using System.Linq;
+
 using MedicineTracking.Table;
 
 
@@ -9,13 +10,13 @@ namespace MedicineTracking.Query
     internal static class Common
     {
 
-        static char ListSeparator = ',';
+
+        private static char ListSeparator = ',';
 
 
         public static decimal GetDosageOfDay(DateTime day, DateTime validFrom, PatientDosage.DosageType type, decimal dosageValue, string param)
         {
             decimal result = 0;
-
 
             switch (type)
             {

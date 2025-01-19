@@ -25,10 +25,6 @@ namespace MedicineTracking.Query
 
 
 
-
-
-        // Tehát azt szeretném tudni, hogy az egyes gyógyszerfajtákból mennyi fogyott egy hónapban.
-
         public static Matrix GetResult(DateTime dateFrom, DateTime dateTo, List<PatientInventory> patientInventories, List<MedicineDosage> medicineDosages)
         {
 
@@ -40,7 +36,7 @@ namespace MedicineTracking.Query
                 {
                     if (result.GetIndex(Table.PatientInventory.medicine_id, inventoryRecord.MedicineId) == -1)
                     {
-                        result.AddRow(new string[] { inventoryRecord.MedicineId, inventoryRecord.MedicineName, "" });
+                        result.AddRow(new string[] { inventoryRecord.MedicineId, inventoryRecord.MedicineName, "0" });
                     }
                 }
             }
@@ -78,11 +74,9 @@ namespace MedicineTracking.Query
 
                                 if (value != 0)
                                 {
-                                    string currentValueString = result.GetValue(quantity_decrement, i);
-                                    decimal currentValue = String.IsNullOrEmpty(currentValueString) ? 0 : Decimal.Parse(currentValueString, CultureInfo.InvariantCulture);
+                                    decimal currentValue = Decimal.Parse(result.GetValue(quantity_decrement, i), CultureInfo.InvariantCulture);
 
-                                    string sum = (currentValue + value).ToString().Replace(',', '.');
-                                    result.SetValue(quantity_decrement, i, sum);
+                                    result.SetValue(quantity_decrement, i, (currentValue + value).ToString().Replace(',', '.'));
                                 }
                             }
                         }

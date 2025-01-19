@@ -1,6 +1,7 @@
 ﻿
 using System.Collections.Generic;
 using System;
+using System.Globalization;
 
 using MedicineTracking.Utility;
 
@@ -71,9 +72,9 @@ namespace MedicineTracking.Table
                     string medicineName = inventoryMatrix.GetValue(medicine_name, i);
 
                     DateTime inventoryDate = DateTime.Parse(lastInventoryColumn.Split(DynamicColumnNameSeparator)[1]);
-                    float medicineCount = Single.Parse(inventoryMatrix.GetValue(lastInventoryColumn, i));
+                    decimal medicineCount = Decimal.Parse(inventoryMatrix.GetValue(lastInventoryColumn, i), CultureInfo.InvariantCulture);
 
-                    Dictionary<DateTime, float> incrementations = new Dictionary<DateTime, float>();
+                    Dictionary<DateTime, decimal> incrementations = new Dictionary<DateTime, decimal>();
 
                     for (int j = 0; j < incrementColumns.Count; j++)
                     {
@@ -82,7 +83,7 @@ namespace MedicineTracking.Table
                         if (incrementDate >= inventoryDate)
                         {
                             string incrementValueString = inventoryMatrix.GetValue(incrementColumns[j], i);
-                            float incrementValue = Single.Parse(String.IsNullOrEmpty(incrementValueString) ? "0" : incrementValueString);
+                            decimal incrementValue = Decimal.Parse(String.IsNullOrEmpty(incrementValueString) ? "0" : incrementValueString, CultureInfo.InvariantCulture);
 
                             if (incrementValue != 0)
                             {

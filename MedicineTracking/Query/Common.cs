@@ -1,7 +1,6 @@
 ﻿
 using System;
 using System.Linq;
-
 using MedicineTracking.Table;
 
 
@@ -13,9 +12,9 @@ namespace MedicineTracking.Query
         static char ListSeparator = ',';
 
 
-        public static float GetDosageOfDay(DateTime day, DateTime validFrom, PatientDosage.DosageType type, float dosageValue, string param)
+        public static decimal GetDosageOfDay(DateTime day, DateTime validFrom, PatientDosage.DosageType type, decimal dosageValue, string param)
         {
-            float result = 0;
+            decimal result = 0;
 
 
             switch (type)
@@ -28,9 +27,7 @@ namespace MedicineTracking.Query
 
                 case PatientDosage.DosageType.every_other_day:
 
-                    bool isCurrentDayEven = IsDayEvenDay(day);
-                    bool isValidFromDayEven = IsDayEvenDay(validFrom);
-                    if ((isValidFromDayEven && isCurrentDayEven) || (!isValidFromDayEven && !isCurrentDayEven))
+                    if (day.Subtract(validFrom).TotalDays == 0 || day.Subtract(validFrom).TotalDays % 2 == 0)
                     {
                         result = dosageValue;
                     }
@@ -58,7 +55,7 @@ namespace MedicineTracking.Query
                 case PatientDosage.DosageType.weekly:
 
                     string[] weekDays = param.Split(ListSeparator);
-                    string dayOfWeek = ((int)day.DayOfWeek).ToString();
+                    string dayOfWeek = ((int)day.DayOfWeek + 1).ToString();
                     if (weekDays.Contains(dayOfWeek))
                     {
                         result = dosageValue;

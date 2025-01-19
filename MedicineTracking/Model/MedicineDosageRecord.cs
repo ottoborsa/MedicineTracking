@@ -9,7 +9,7 @@ namespace MedicineTracking.Model
 
         public Table.PatientDosage.DosageType DosageType { get; private set; }
 
-        public float DosageValue { get; private set; }
+        public decimal DosageValue { get; private set; }
 
         public string DosageTypeParameter { get; private set; }
 
@@ -21,7 +21,7 @@ namespace MedicineTracking.Model
         public MedicineDosageRecord(
             string medicineId,
             Table.PatientDosage.DosageType dosageType,
-            float dosageValue,
+            decimal dosageValue,
             string dosageTypeParameter,
             DateTime validFrom,
             DateTime validTo

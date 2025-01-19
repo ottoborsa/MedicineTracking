@@ -2,6 +2,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 
 using MedicineTracking.Model;
 using MedicineTracking.Utility;
@@ -37,13 +38,12 @@ namespace MedicineTracking.Query
             {
                 foreach (PatientInventoryRecord inventoryRecord in patient.PatientInventoryRecords)
                 {
-                    if (result.GetIndex(Table.PatientInventory.medicine_id, inventoryRecord.MedicineId) != -1)
+                    if (result.GetIndex(Table.PatientInventory.medicine_id, inventoryRecord.MedicineId) == -1)
                     {
                         result.AddRow(new string[] { inventoryRecord.MedicineId, inventoryRecord.MedicineName, "" });
                     }
                 }
             }
-
 
             // iterate on result Matrix (medicine records)
             for (int i = 0; i < result.GetSize(); i++)
@@ -68,17 +68,22 @@ namespace MedicineTracking.Query
                                 dosageRecord.ValidTo >= day
                                )
                             {
-                                Table.PatientDosage.DosageType dosageType = dosageRecord.DosageType;
-                                string dosageParam = dosageRecord.DosageTypeParameter;
+                                decimal value = Common.GetDosageOfDay(
+                                    day,
+                                    dosageRecord.ValidFrom,
+                                    dosageRecord.DosageType,
+                                    dosageRecord.DosageValue,
+                                    dosageRecord.DosageTypeParameter
+                                );
 
-                                float value = Common.GetDosageOfDay(day, dosageRecord.ValidFrom, dosageType, dosageRecord.DosageValue, dosageParam);
+                                if (value != 0)
+                                {
+                                    string currentValueString = result.GetValue(quantity_decrement, i);
+                                    decimal currentValue = String.IsNullOrEmpty(currentValueString) ? 0 : Decimal.Parse(currentValueString, CultureInfo.InvariantCulture);
 
-                                string decrementString = result.GetValue(quantity_decrement, i);
-                                decrementString = String.IsNullOrEmpty(decrementString) ? "0" : decrementString;
-                                float decrement = Single.Parse(decrementString);
-                                decrement += value;
-
-                                result.SetValue(quantity_decrement, i, decrement.ToString());
+                                    string sum = (currentValue + value).ToString().Replace(',', '.');
+                                    result.SetValue(quantity_decrement, i, sum);
+                                }
                             }
                         }
                     }

@@ -13,17 +13,17 @@ namespace MedicineTracking
 
         public DateTime InventoryDate { get; private set; }
 
-        public float MedicineCount { get; private set; }
+        public decimal MedicineCount { get; private set; }
 
-        public Dictionary<DateTime, float> Incrementations { get; private set; }
+        public Dictionary<DateTime, decimal> Incrementations { get; private set; }
 
 
         public PatientInventoryRecord(
             string medicineId,
             string medicineName,
             DateTime inventoryDate,
-            float medicineCount,
-            Dictionary<DateTime, float> incrementations
+            decimal medicineCount,
+            Dictionary<DateTime, decimal> incrementations
         )
         {
             MedicineId = medicineId;

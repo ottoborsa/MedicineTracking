@@ -17,7 +17,7 @@ namespace MedicineTracking.Query
 
         static string patient_name = nameof(patient_name);
 
-        static string depletion_date = nameof(depletion_date);
+        static string last_positive_amount_day = nameof(last_positive_amount_day);
 
         public static string[] Signature { get; private set; } = new string[]
         {
@@ -25,12 +25,9 @@ namespace MedicineTracking.Query
             patient_name,
             Table.PatientInventory.medicine_id,
             Table.PatientInventory.medicine_name,
-            depletion_date
+            last_positive_amount_day
         };
 
-
-
-        // Tehát szeretném azt látni, mikor fogy el, naptári napokon
 
 
 
@@ -46,18 +43,18 @@ namespace MedicineTracking.Query
                 // iterate on inventory records
                 foreach (PatientInventoryRecord inventoryRecord in patient.PatientInventoryRecords)
                 {
-                    decimal sum = 0;
 
+                    DateTime lastPositiveAmountDay = DateTime.Parse(DateTools.ForeverDateString);
+                    decimal amount = inventoryRecord.MedicineCount;
 
                     // iterate on days
                     foreach (DateTime day in DateTools.EachDay(inventoryRecord.InventoryDate, DateTime.Parse(DateTools.ForeverDateString)))
                     {
 
-
                         // iterate in incrementations
                         foreach (KeyValuePair<DateTime, decimal> incrementation in inventoryRecord.Incrementations.Where(i => i.Key.Day == day.Day).ToList())
                         {
-                            sum += incrementation.Value;
+                            amount += incrementation.Value;
                         }
 
                         // (only one step of iteration for the given patient)
@@ -84,16 +81,18 @@ namespace MedicineTracking.Query
 
                                     if (value != 0)
                                     {
-                                        sum += value;
+                                        amount -= value;
                                     }
                                 }
                             }
                         }
 
-                        ;
-
+                        if (amount <= 0)
+                        {
+                            lastPositiveAmountDay = day.AddDays(-1);
+                            break;
+                        }
                     }
-
 
                     result.AddRow(new string[]
                     {
@@ -101,7 +100,7 @@ namespace MedicineTracking.Query
                         patient.PatientName,
                         inventoryRecord.MedicineId,
                         inventoryRecord.MedicineName,
-                        sum.ToString().Replace(',', '.')
+                        lastPositiveAmountDay.ToString(),
                     });
                 }
             }

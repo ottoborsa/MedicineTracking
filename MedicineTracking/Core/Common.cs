@@ -37,6 +37,9 @@ namespace MedicineTracking.Core
 
             Matrix result = Query.MedicineDecrement.GetResult(dateFrom, dateTo, patientInventories, medicineDosages);
 
+
+            ;
+
         }
 
 

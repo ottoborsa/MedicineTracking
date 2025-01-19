@@ -21,8 +21,12 @@ namespace MedicineTracking
         public Form1()
         {
             InitializeComponent();
+
             Text = nameof(Common);
             tabControl1.SelectedTab = tabPage1;
+
+            dateTimePicker1.Value = new DateTime(DateTime.Now.Year, DateTime.Now.Month, 1);
+            dateTimePicker2.Value = dateTimePicker1.Value.AddMonths(1).AddDays(-1);
         }
 
         private void Form1_Load(object sender, EventArgs e)

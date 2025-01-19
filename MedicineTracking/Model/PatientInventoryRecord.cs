@@ -1,5 +1,6 @@
 ﻿
 using System;
+using System.Collections.Generic;
 
 namespace MedicineTracking
 {
@@ -10,17 +11,26 @@ namespace MedicineTracking
 
         public string MedicineName { get; private set; }
 
-        public DateTime Date { get; private set; }
+        public DateTime InventoryDate { get; private set; }
 
-        public int MedicineCount { get; private set; }
+        public float MedicineCount { get; private set; }
+
+        public Dictionary<DateTime, float> Incrementations { get; private set; }
 
 
-        public PatientInventoryRecord(string medicineId, string medicineName, DateTime date, int medicineCount)
+        public PatientInventoryRecord(
+            string medicineId,
+            string medicineName,
+            DateTime inventoryDate,
+            float medicineCount,
+            Dictionary<DateTime, float> incrementations
+        )
         {
             MedicineId = medicineId;
             MedicineName = medicineName;
-            Date = date;
+            InventoryDate = inventoryDate;
             MedicineCount = medicineCount;
+            Incrementations = incrementations;
         }
     }
 }

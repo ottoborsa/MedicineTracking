@@ -36,27 +36,54 @@ namespace MedicineTracking.Table
                 string fileContent = file.Value;
 
                 string patientName = fileName.Split(FileNameSeparator)[0];
-                string patientId = fileName.Split(FileNameSeparator)[1];
+                string patientId = fileName.Split(FileNameSeparator)[1].Split('.')[0];
 
-                CsvParser.Matrix inventory = CsvParser.CsvParser.Parse(fileContent);
+                CsvParser.Matrix inventoryMatrix = CsvParser.CsvParser.Parse(fileContent);
 
-                for (int i = 0; i < inventory.GetSize(); i++)
+
+                string[] signature = inventoryMatrix.Signature;
+                string lastInventoryColumn = String.Empty;
+                List<string> incrementColumns = new List<string>();
+                foreach(string columnName in signature)
                 {
-                    string medicineId = inventory.GetValue(medicine_id, i);
-
-                    string medicineName = inventory.GetValue(medicine_name, i);
-
-
-
-                    // TODO: inventory and increment
-
-                    //int count = Int32.Parse(inventory.GetValue("inventory_2025-01-01", i) ?? "0");
-
-
+                    if (columnName.StartsWith(inventory_prefix))
+                    {
+                        lastInventoryColumn = columnName;
+                    }
+                    if (columnName.StartsWith(increment_prefix))
+                    {
+                        incrementColumns.Add(columnName);
+                    }
+                }
 
 
+                for (int i = 0; i < inventoryMatrix.GetSize(); i++)
+                {
+                    string medicineId = inventoryMatrix.GetValue(medicine_id, i);
+                    string medicineName = inventoryMatrix.GetValue(medicine_name, i);
 
-                    list.Add(new PatientInventoryRecord(medicineId, medicineName, new DateTime(2025, 1, 1), 0));
+                    DateTime inventoryDate = DateTime.Parse(lastInventoryColumn.Split('_')[1]);
+                    float medicineCount = Single.Parse(inventoryMatrix.GetValue(lastInventoryColumn, i));
+
+                    Dictionary<DateTime, float> incrementations = new Dictionary<DateTime, float>();
+
+                    for (int j = 0; j < incrementColumns.Count; j++)
+                    {
+                        DateTime incrementDate = DateTime.Parse(incrementColumns[j].Split('_')[1]);
+
+                        if (incrementDate >= inventoryDate)
+                        {
+                            string incrementValueString = inventoryMatrix.GetValue(incrementColumns[j], i);
+                            float incrementValue = Single.Parse(String.IsNullOrEmpty(incrementValueString) ? "0" : incrementValueString);
+
+                            if (incrementValue != 0)
+                            {
+                                incrementations.Add(incrementDate, incrementValue);
+                            }
+                        }
+                    }
+
+                    list.Add(new PatientInventoryRecord(medicineId, medicineName, inventoryDate, medicineCount, incrementations));
                 }
 
                 Model.PatientInventory patient = new Model.PatientInventory(patientId, patientName, list);

@@ -60,15 +60,15 @@ namespace MedicineTracking.Table
                 string patientName = fileName.Split(FileNameSeparator)[0];
                 string patientId = fileName.Split(FileNameSeparator)[1];
 
-                CsvParser.Matrix inventory = CsvParser.CsvParser.Parse(fileContent);
+                CsvParser.Matrix dosageMatrix = CsvParser.CsvParser.Parse(fileContent);
 
-                for (int i = 0; i < inventory.GetSize(); i++)
+                for (int i = 0; i < dosageMatrix.GetSize(); i++)
                 {
-                    string medicineId = inventory.GetValue(medicine_id, i);
-                    DosageType dosageType = (DosageType)Enum.Parse(typeof(DosageType), inventory.GetValue(dosage_type_code, i));
-                    string dosageParam = inventory.GetValue(dosage_type_parameter, i);
-                    DateTime validFrom = DateTime.Parse(inventory.GetValue(valid_from, i));
-                    DateTime validTo = DateTime.Parse(String.IsNullOrEmpty(inventory.GetValue(valid_to, i)) ? "2100-12-31" : inventory.GetValue(valid_to, i));
+                    string medicineId = dosageMatrix.GetValue(medicine_id, i);
+                    DosageType dosageType = (DosageType)Enum.Parse(typeof(DosageType), dosageMatrix.GetValue(dosage_type_code, i));
+                    string dosageParam = dosageMatrix.GetValue(dosage_type_parameter, i);
+                    DateTime validFrom = DateTime.Parse(dosageMatrix.GetValue(valid_from, i));
+                    DateTime validTo = DateTime.Parse(String.IsNullOrEmpty(dosageMatrix.GetValue(valid_to, i)) ? "2100-12-31" : dosageMatrix.GetValue(valid_to, i));
 
                     list.Add(new MedicineDosageRecord(medicineId, dosageType, dosageParam, validFrom, validTo));
                 }

@@ -34,9 +34,16 @@ namespace MedicineTracking.Core
 
         public static void MedicineDecrementQuery(string inventoryFolder, string dosageFolder, DateTime dateFrom, DateTime dateTo)
         {
-            //List<PatientInventory> patientInventories = ParsePatientInventory(GetFolderContent(inventoryFolder));
-            //List<MedicineDosage> medicineDosages = ParsePatientDosage(GetFolderContent(dosageFolder));
+            List<PatientInventory> patientInventories = Table.PatientInventory.Parse(GetFolderContent(inventoryFolder));
 
+
+
+
+            List<MedicineDosage> medicineDosages = Table.PatientDosage.Parse(GetFolderContent(dosageFolder));
+
+
+
+            ;
 
 
         }

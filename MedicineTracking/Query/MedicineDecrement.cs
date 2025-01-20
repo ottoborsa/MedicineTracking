@@ -84,8 +84,9 @@ namespace MedicineTracking.Query
                                 if (value != 0)
                                 {
                                     decimal currentValue = Decimal.Parse(result.GetValue(quantity_decrement, i), CultureInfo.InvariantCulture);
+                                    string sum = ((currentValue + value) / 1.000000000000000000000000000000000m).ToString().Replace(',', '.');
 
-                                    result.SetValue(quantity_decrement, i, (currentValue + value).ToString().Replace(',', '.'));
+                                    result.SetValue(quantity_decrement, i, sum);
                                 }
                             }
                         }

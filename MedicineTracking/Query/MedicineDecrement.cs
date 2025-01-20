@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Globalization;
 
 using MedicineTracking.Core;
+using MedicineTracking.Messaging;
 using MedicineTracking.Model;
 using MedicineTracking.Utility;
 
@@ -28,8 +29,18 @@ namespace MedicineTracking.Query
 
         public static Matrix GetResult(DataBase db, DateTime dateFrom, DateTime dateTo)
         {
+            if (dateFrom > dateTo || dateTo.Subtract(dateFrom).TotalDays > 365)
+            {
+                throw new SerializedException("InvalidDateRange");
+            }
+
             List<PatientInventory> patientInventories = db.Table_PatientInventory;
             List<MedicineDosage> medicineDosages = db.Table_PatientDosage;
+
+            if (patientInventories.Count == 0 || medicineDosages.Count == 0)
+            {
+                throw new SerializedException("InsufficientDataBase");
+            }
 
             Matrix result = new Matrix(Signature);
 
@@ -39,6 +50,11 @@ namespace MedicineTracking.Query
                 {
                     if (result.GetIndex(Table.PatientInventory.medicine_id, inventoryRecord.MedicineId) == -1)
                     {
+                        if (inventoryRecord.InventoryDate > dateFrom)
+                        {
+                            throw new SerializedException("NoInventoryAvailableForDateRange");
+                        }
+
                         result.AddRow(new string[] { inventoryRecord.MedicineId, inventoryRecord.MedicineName, "0" });
                     }
                 }

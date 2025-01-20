@@ -6,6 +6,7 @@ using System.Linq;
 using MedicineTracking.Utility;
 using MedicineTracking.Model;
 using MedicineTracking.Core;
+using MedicineTracking.Messaging;
 
 
 namespace MedicineTracking.Query
@@ -36,6 +37,11 @@ namespace MedicineTracking.Query
         {
             List<PatientInventory> patientInventories = db.Table_PatientInventory;
             List<MedicineDosage> medicineDosages = db.Table_PatientDosage;
+
+            if (patientInventories.Count == 0 || medicineDosages.Count == 0)
+            {
+                throw new SerializedException("InsufficientDataBase");
+            }
 
             Matrix result = new Matrix(Signature);
 

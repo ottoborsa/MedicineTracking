@@ -40,6 +40,11 @@ namespace MedicineTracking
         {
         }
 
+        private void exitToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Close();
+        }
+
 
 
 
@@ -71,7 +76,7 @@ namespace MedicineTracking
             Try(() =>
             {
                 SaveFile(
-                    $"{GetNow()} - {nameof(ApplicationInterface.MedicineDecrementQuery)} - {dateTimePicker1.Value.ToString(DateTools.DayPattern)} - {dateTimePicker2.Value.ToString(DateTools.DayPattern)}",
+                    $"{GetToday()} - {nameof(ApplicationInterface.MedicineDecrementQuery)} - {dateTimePicker1.Value.ToString(DateTools.DayPattern)} - {dateTimePicker2.Value.ToString(DateTools.DayPattern)}",
                     ApplicationInterface.MedicineDecrementQuery(dateTimePicker1.Value, dateTimePicker2.Value),
                     DataBase.FileExtension
                 );
@@ -83,7 +88,7 @@ namespace MedicineTracking
             Try(() =>
             {
                 SaveFile(
-                    $"{GetNow()} - {nameof(ApplicationInterface.MedicineDepletionProjectionQuery)}",
+                    $"{GetToday()} - {nameof(ApplicationInterface.MedicineDepletionProjectionQuery)}",
                     ApplicationInterface.MedicineDepletionProjectionQuery(),
                     DataBase.FileExtension
                 );
@@ -124,24 +129,9 @@ namespace MedicineTracking
             }
         }
 
-        private static string GetNow()
+        private static string GetToday()
         {
             return DateTime.Now.ToString(DateTools.DayPattern);
-        }
-
-        private void releaseInfoToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            DialogResult result = MessageBox.Show(
-                JsonConvert.SerializeObject(new ReleaseInfo(), Formatting.Indented),
-                "Release information",
-                MessageBoxButtons.OK,
-                MessageBoxIcon.Information
-            );
-        }
-
-        private void exitToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            Close();
         }
 
         private void SetControlsState(bool state)
@@ -153,7 +143,6 @@ namespace MedicineTracking
             dateTimePicker1.Enabled = state;
             dateTimePicker2.Enabled = state;
         }
-
 
         private static void ExceptionDialog(Exception ex)
         {
@@ -169,7 +158,22 @@ namespace MedicineTracking
 
         private static DialogResult ErrorDialog(Type type, string message)
         {
-            return MessageBox.Show(message, $"Application {type} occured!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            return MessageBox.Show(
+                message,
+                $"Application {type} occured!",
+                MessageBoxButtons.OK,
+                MessageBoxIcon.Error
+            );
+        }
+
+        private void releaseInfoToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            DialogResult result = MessageBox.Show(
+                JsonConvert.SerializeObject(new ReleaseInfo(), Formatting.Indented),
+                "Release information",
+                MessageBoxButtons.OK,
+                MessageBoxIcon.Information
+            );
         }
     }
 }

@@ -53,6 +53,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Core\DataBase.cs" />
+    <Compile Include="Core\ReleaseInfo.cs" />
     <Compile Include="Messaging\Const\IndividualStatusCodes.cs" />
     <Compile Include="Messaging\Const\Keys.cs" />
     <Compile Include="Messaging\GeneralSystemError.cs" />

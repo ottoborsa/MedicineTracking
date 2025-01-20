@@ -131,9 +131,12 @@ namespace MedicineTracking
 
         private void releaseInfoToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            MessageBoxButtons buttons = MessageBoxButtons.OK;
-
-            DialogResult result = MessageBox.Show("message", "caption", buttons);
+            DialogResult result = MessageBox.Show(
+                JsonConvert.SerializeObject(new ReleaseInfo(), Formatting.Indented),
+                "Release information",
+                MessageBoxButtons.OK,
+                MessageBoxIcon.Information
+            );
         }
 
         private void exitToolStripMenuItem_Click(object sender, EventArgs e)

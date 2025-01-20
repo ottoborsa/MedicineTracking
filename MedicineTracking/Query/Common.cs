@@ -11,7 +11,7 @@ namespace MedicineTracking.Query
     {
 
 
-        private static char ListSeparator = ',';
+        private const char ListSeparator = ',';
 
 
         public static decimal GetDosageOfDay(DateTime day, DateTime validFrom, PatientDosage.DosageType type, decimal dosageValue, string param)

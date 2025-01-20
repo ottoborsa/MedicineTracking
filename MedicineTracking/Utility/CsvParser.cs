@@ -8,7 +8,7 @@ namespace MedicineTracking.Utility
 
         public static string LineSeparator { get; private set; } = Environment.NewLine;
 
-        public static char CulumnSeparator { get; private set; } = ';';
+        public const char CulumnSeparator = ';';
 
 
 

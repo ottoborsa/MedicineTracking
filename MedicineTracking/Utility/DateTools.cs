@@ -7,9 +7,9 @@ namespace MedicineTracking.Utility
     internal static class DateTools
     {
 
-        public static string ForeverDateString { get; private set; } = "2030-01-31"; //"2099-12-31";
+        public const string ForeverDateString = "2030-01-31"; //"2099-12-31";
 
-        public static string DayPattern { get; private set; } = "yyyy-MM-dd";
+        public const string DayPattern = "yyyy-MM-dd";
 
 
 

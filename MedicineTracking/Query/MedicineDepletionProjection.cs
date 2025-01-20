@@ -13,11 +13,11 @@ namespace MedicineTracking.Query
     {
 
 
-        static string patient_id = nameof(patient_id);
+        public const string patient_id = nameof(patient_id);
 
-        static string patient_name = nameof(patient_name);
+        public const string patient_name = nameof(patient_name);
 
-        static string depletion_day = nameof(depletion_day);
+        public const string depletion_day = nameof(depletion_day);
 
         public static string[] Signature { get; private set; } = new string[]
         {

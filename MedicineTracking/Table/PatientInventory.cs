@@ -12,11 +12,11 @@ namespace MedicineTracking.Table
     internal static class PatientInventory
     {
 
-        private static char FileNameSeparator = '_';
+        private const char FileNameSeparator = '_';
 
-        private static char FileExtensionSeparator = '.';
+        private const char FileExtensionSeparator = '.';
 
-        private static char DynamicColumnNameSeparator = '_';
+        private const char DynamicColumnNameSeparator = '_';
 
 
 

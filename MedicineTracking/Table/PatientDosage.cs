@@ -27,9 +27,9 @@ namespace MedicineTracking.Table
 
 
 
-        private static char FileNameSeparator = '_';
+        private const char FileNameSeparator = '_';
 
-        private static char FileExtensionSeparator = '.';
+        private const char FileExtensionSeparator = '.';
 
 
 

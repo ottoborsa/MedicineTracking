@@ -14,9 +14,9 @@ namespace MedicineTracking.Query
     {
 
 
-        static string quantity_decrement = nameof(quantity_decrement);
+        public const string quantity_decrement = nameof(quantity_decrement);
 
-        public static string[] Signature = new string[]
+        public static string[] Signature { get; private set; } = new string[]
         {
             Table.PatientInventory.medicine_id,
             Table.PatientInventory.medicine_name,

@@ -10,5 +10,8 @@ namespace MedicineTracking.Messaging.Const
         public const string ErrorType = nameof(ErrorType);
 
         public const string FileName = nameof(FileName);
+
+
+        public const string MedicineId = nameof(MedicineId);
     }
 }

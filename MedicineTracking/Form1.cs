@@ -154,14 +154,14 @@ namespace MedicineTracking
 
         private static void ExceptionDialog(Exception ex)
         {
-            ErrorDialog(typeof(Exception), ex.Message);
+            ErrorDialog(ex.GetType(), ex.Message);
         }
 
         private static void ExceptionDialog(SerializedException ex)
         {
             SystemError error = JsonConvert.DeserializeObject<SystemError>(SystemError.ParseException(ex).ErrorMessage);
 
-            ErrorDialog(typeof(SerializedException), JsonConvert.SerializeObject(error, Formatting.Indented));
+            ErrorDialog(ex.GetType(), JsonConvert.SerializeObject(error, Formatting.Indented));
         }
 
         private static DialogResult ErrorDialog(Type type, string message)

@@ -2,12 +2,13 @@
 using System.Collections.Generic;
 using System;
 using System.Globalization;
+using System.Linq;
+using Newtonsoft.Json;
 
 using MedicineTracking.Model;
 using MedicineTracking.Utility;
 using MedicineTracking.Messaging;
 using MedicineTracking.Messaging.Const;
-
 
 
 namespace MedicineTracking.Table
@@ -40,19 +41,24 @@ namespace MedicineTracking.Table
             {
                 List<PatientInventoryRecord> list = new();
                 string fileName = String.Empty;
+                string medicineId = String.Empty;
 
                 try
                 {
                     string filePath = fileRecord.FilePath;
                     string[] path = filePath.Split('\\');
-                    fileName = path[path.Length - 1];
                     string fileContent = fileRecord.Content;
+                    fileName = path[path.Length - 1];
 
                     string patientName = fileName.Split(FileNameSeparator)[0];
                     string patientId = fileName.Split(FileNameSeparator)[1].Split(Core.DataBase.FileExtensionSeparator)[0];
 
-                    Matrix inventoryMatrix = CsvParser.Parse(fileContent);
+                    if (result.Where(element => element.PatientId == patientId).Count() > 0)
+                    {
+                        throw new SerializedException("DuplicateOfPatient");
+                    }
 
+                    Matrix inventoryMatrix = CsvParser.Parse(fileContent);
 
                     string[] signature = inventoryMatrix.Signature;
                     string lastInventoryColumn = String.Empty;
@@ -69,10 +75,20 @@ namespace MedicineTracking.Table
                         }
                     }
 
+                    if (String.IsNullOrEmpty(lastInventoryColumn))
+                    {
+                        throw new SerializedException("MissingInventory");
+                    }
 
                     for (int i = 0; i < inventoryMatrix.GetSize(); i++)
                     {
-                        string medicineId = inventoryMatrix.GetValue(medicine_id, i);
+                        medicineId = inventoryMatrix.GetValue(medicine_id, i);
+
+                        if (list.Where(element => element.MedicineId == medicineId).Count() > 0)
+                        {
+                            throw new SerializedException("DuplicateOfMedicine");
+                        }
+
                         string medicineName = inventoryMatrix.GetValue(medicine_name, i);
 
                         DateTime inventoryDate = DateTime.Parse(lastInventoryColumn.Split(DynamicColumnNameSeparator)[1]);
@@ -99,16 +115,29 @@ namespace MedicineTracking.Table
                         list.Add(new PatientInventoryRecord(medicineId, medicineName, inventoryDate, medicineCount, incrementations));
                     }
 
-
                     Model.PatientInventory patient = new Model.PatientInventory(patientId, patientName, list);
                     result.Add(patient);
+                }
+                catch (SerializedException ex)
+                {
+                    throw new SerializedException(
+                        new Translation(
+                            $"{nameof(Table)}.{nameof(PatientInventory)}",
+                            new()
+                            {
+                                { Keys.FileName, fileName },
+                                { Keys.MedicineId, medicineId },
+                                { Keys.ErrorMessage, JsonConvert.DeserializeObject<SystemError>(SystemError.ParseException(ex).ErrorMessage).ErrorMessage }
+                            }
+                        )
+                    );
                 }
                 catch (Exception ex)
                 {
                     throw new SerializedException(
                         new Translation(
                             $"{nameof(Table)}.{nameof(PatientInventory)}",
-                            new() { { Keys.FileName, fileName }, { Keys.ErrorMessage, ex.Message } }
+                            new() { { Keys.FileName, fileName }, { Keys.MedicineId, medicineId }, { Keys.ErrorMessage, ex.Message } }
                         )
                     );
                 }

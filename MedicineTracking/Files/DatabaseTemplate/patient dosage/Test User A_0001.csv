@@ -1,7 +1,0 @@
-medicine_id;medicine_name;dosage_type_code;dosage_type_parameter;valid_from;valid_to
-0100;medicine 1;daily;0.25;2025.01.01;
-0101;medicine 2;every_other_day;;2025.01.01;
-0102;medicine 3;on_even_days;;2025.01.01;
-0103;medicine 4;on_odd_days;;2025.01.01;
-0104;medicine 5;weekly;1,2,3,4,5,6,7;2025.01.01;
-;;;;;

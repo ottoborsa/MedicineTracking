@@ -23,10 +23,10 @@ namespace MedicineTracking.Core
 
 
 
-        public DataBase(string patientInventoryTableFolderPath, string patientDosageTableFolderPath)
+        public DataBase(string patientInventoryTablePath, string patientDosageTablePath)
         {
-            Path_PatientInventoryTable = patientInventoryTableFolderPath;
-            Path_PatientDosageTable = patientDosageTableFolderPath;
+            Path_PatientInventoryTable = patientInventoryTablePath;
+            Path_PatientDosageTable = patientDosageTablePath;
 
             Table_PatientInventory = Table.PatientInventory.Parse(GetFolderContent(Path_PatientInventoryTable));
             Table_PatientDosage = Table.PatientDosage.Parse(GetFolderContent(Path_PatientDosageTable));

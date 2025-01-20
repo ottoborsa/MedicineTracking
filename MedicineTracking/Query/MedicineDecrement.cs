@@ -3,6 +3,7 @@
 using System;
 using System.Collections.Generic;
 using System.Globalization;
+
 using MedicineTracking.Core;
 using MedicineTracking.Model;
 using MedicineTracking.Utility;
@@ -49,7 +50,7 @@ namespace MedicineTracking.Query
 
                 int progressPercentage = (int)Math.Round((decimal)(i + 1) / (decimal)(result.GetSize()) * 100);
                 int progress = 50 + progressPercentage / 2;
-                Core.ApplicationInterface.SetProgressBarValue(progress);
+                ApplicationInterface.SetProgressBarValue(progress);
 
                 string medicineId = result.GetValue(Table.PatientInventory.medicine_id, i);
 

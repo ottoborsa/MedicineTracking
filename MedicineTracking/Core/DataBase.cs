@@ -16,9 +16,9 @@ namespace MedicineTracking.Core
 
 
 
-        public string Path_PatientInventoryTable { get; private set; }
+        public string Path_PatientInventory { get; private set; }
 
-        public string Path_PatientDosageTable { get; private set; }
+        public string Path_PatientDosage { get; private set; }
 
         public List<PatientInventory> Table_PatientInventory { get; private set; }
 
@@ -28,11 +28,11 @@ namespace MedicineTracking.Core
 
         public DataBase()
         {
-            Path_PatientInventoryTable = ApplicationInterface.GetDataBaseTableFolders()[nameof(Table.PatientInventory)];
-            Path_PatientDosageTable = ApplicationInterface.GetDataBaseTableFolders()[nameof(Table.PatientDosage)];
+            Path_PatientInventory = ApplicationInterface.GetDataBaseTableFolders()[nameof(Table.PatientInventory)];
+            Path_PatientDosage = ApplicationInterface.GetDataBaseTableFolders()[nameof(Table.PatientDosage)];
 
-            Table_PatientInventory = Table.PatientInventory.Parse(GetFolderContent(Path_PatientInventoryTable));
-            Table_PatientDosage = Table.PatientDosage.Parse(GetFolderContent(Path_PatientDosageTable));
+            Table_PatientInventory = Table.PatientInventory.Parse(GetFolderContent(Path_PatientInventory));
+            Table_PatientDosage = Table.PatientDosage.Parse(GetFolderContent(Path_PatientDosage));
         }
 
 

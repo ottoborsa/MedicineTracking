@@ -41,7 +41,7 @@ namespace MedicineTracking.Table
             int fileCounter = 0;
             foreach (FileRecord fileRecord in files)
             {
-                // Progressbar: 1st event; 25% range of whole
+                // ProgressBar: 1st event (of total 3); 25% range of whole
                 fileCounter++;
                 int progressPercentage = (int)Math.Round((decimal)(fileCounter) / (decimal)(files.Count) * 100);
                 int progress = 0 + progressPercentage / 4;

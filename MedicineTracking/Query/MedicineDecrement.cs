@@ -48,7 +48,7 @@ namespace MedicineTracking.Query
             for (int i = 0; i < result.GetSize(); i++)
             {
 
-                // Progressbar: 3rd event; 50% range of whole
+                // ProgressBar: 3rd event (of total 3); 50% range of whole
                 int progressPercentage = (int)Math.Round((decimal)(i + 1) / (decimal)(result.GetSize()) * 100);
                 int progress = 50 + progressPercentage / 2;
                 ApplicationInterface.SetProgressBarValue(progress);

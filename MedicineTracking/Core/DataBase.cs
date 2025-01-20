@@ -26,10 +26,10 @@ namespace MedicineTracking.Core
 
 
 
-        public DataBase(string patientInventoryTablePath, string patientDosageTablePath)
+        public DataBase()
         {
-            Path_PatientInventoryTable = patientInventoryTablePath;
-            Path_PatientDosageTable = patientDosageTablePath;
+            Path_PatientInventoryTable = Program.MainForm.PatientInventoryFolderTextBox.Text.Trim();
+            Path_PatientDosageTable = Program.MainForm.PatientDosageFolderTextBox.Text.Trim();
 
             Table_PatientInventory = Table.PatientInventory.Parse(GetFolderContent(Path_PatientInventoryTable));
             Table_PatientDosage = Table.PatientDosage.Parse(GetFolderContent(Path_PatientDosageTable));
@@ -38,7 +38,7 @@ namespace MedicineTracking.Core
 
         private static Dictionary<string, string> GetFolderContent(string path)
         {
-            Dictionary<string, string> result = new Dictionary<string, string>();
+            Dictionary<string, string> result = new();
 
             foreach (string file in Directory.EnumerateFiles(path, $"*{FileExtensionSeparator}{FileExtension}"))
             {

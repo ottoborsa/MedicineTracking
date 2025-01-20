@@ -23,31 +23,21 @@ namespace MedicineTracking.Core
             }
         }
 
-        public static string MedicineDecrementQuery(
-            ProgressBar progressBar,
-            string inventoryFolderPath,
-            string dosageFolderPath,
-            DateTime dateFrom,
-            DateTime dateTo
-        )
+        public static string MedicineDecrementQuery(ProgressBar progressBar, DateTime dateFrom, DateTime dateTo)
         {
             ProgressBar = progressBar;
 
-            DataBase db = new DataBase(inventoryFolderPath, dosageFolderPath);
+            DataBase db = new DataBase();
             Matrix result = Query.MedicineDecrement.GetResult(dateFrom, dateTo, db.Table_PatientInventory, db.Table_PatientDosage);
 
             return CsvParser.FromMatrix(result);
         }
 
-        public static string MedicineDepletionProjectionQuery(
-            ProgressBar progressBar,
-            string inventoryFolderPath,
-            string dosageFolderPath
-        )
+        public static string MedicineDepletionProjectionQuery(ProgressBar progressBar)
         {
             ProgressBar = progressBar;
 
-            DataBase db = new DataBase(inventoryFolderPath, dosageFolderPath);
+            DataBase db = new DataBase();
             Matrix result = Query.MedicineDepletionProjection.GetResult(db.Table_PatientInventory, db.Table_PatientDosage);
 
             return CsvParser.FromMatrix(result);

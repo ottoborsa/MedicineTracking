@@ -72,13 +72,7 @@ namespace MedicineTracking
             {
                 SaveFile(
                     $"{GetNow()} - {nameof(Common.MedicineDecrementQuery)} - {dateTimePicker1.Value.ToString(DateTools.DayPattern)} - {dateTimePicker2.Value.ToString(DateTools.DayPattern)}",
-                    Common.MedicineDecrementQuery(
-                        progressBar1,
-                        PatientInventoryFolderTextBox.Text,
-                        PatientDosageFolderTextBox.Text,
-                        dateTimePicker1.Value,
-                        dateTimePicker2.Value
-                    ),
+                    Common.MedicineDecrementQuery(progressBar1, dateTimePicker1.Value, dateTimePicker2.Value),
                     DataBase.FileExtension
                 );
             });
@@ -90,11 +84,7 @@ namespace MedicineTracking
             {
                 SaveFile(
                     $"{GetNow()} - {nameof(Common.MedicineDepletionProjectionQuery)}",
-                    Common.MedicineDepletionProjectionQuery(
-                        progressBar1,
-                        PatientInventoryFolderTextBox.Text,
-                        PatientDosageFolderTextBox.Text
-                    ),
+                    Common.MedicineDepletionProjectionQuery(progressBar1),
                     DataBase.FileExtension
                 );
             });

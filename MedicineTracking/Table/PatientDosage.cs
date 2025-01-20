@@ -52,21 +52,21 @@ namespace MedicineTracking.Table
 
 
 
-        public static List<MedicineDosage> Parse(Dictionary<string, string> files)
+        public static List<MedicineDosage> Parse(List<FileRecord> files)
         {
-            List<MedicineDosage> result = new List<MedicineDosage>();
+            List<MedicineDosage> result = new();
 
-            foreach (KeyValuePair<string, string> file in files)
+            foreach (FileRecord fileRecord in files)
             {
-                List<MedicineDosageRecord> list = new List<MedicineDosageRecord>();
+                List<MedicineDosageRecord> list = new();
                 string fileName = String.Empty;
 
                 try
                 {
-                    string filePath = file.Key;
+                    string filePath = fileRecord.FilePath;
                     string[] path = filePath.Split('\\');
                     fileName = path[path.Length - 1];
-                    string fileContent = file.Value;
+                    string fileContent = fileRecord.Content;
 
                     string patientName = fileName.Split(FileNameSeparator)[0];
                     string patientId = fileName.Split(FileNameSeparator)[1].Split(Core.DataBase.FileExtensionSeparator)[0];

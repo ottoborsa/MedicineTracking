@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System;
 using System.Globalization;
 
+using MedicineTracking.Model;
 using MedicineTracking.Utility;
 using MedicineTracking.Messaging;
 using MedicineTracking.Messaging.Const;
@@ -31,21 +32,21 @@ namespace MedicineTracking.Table
 
 
 
-        public static List<Model.PatientInventory> Parse(Dictionary<string, string> files)
+        public static List<Model.PatientInventory> Parse(List<FileRecord> files)
         {
-            List<Model.PatientInventory> result = new List<Model.PatientInventory>();
+            List<Model.PatientInventory> result = new();
 
-            foreach (KeyValuePair<string, string> file in files)
+            foreach (FileRecord fileRecord in files)
             {
-                List<PatientInventoryRecord> list = new List<PatientInventoryRecord>();
+                List<PatientInventoryRecord> list = new();
                 string fileName = String.Empty;
 
                 try
                 {
-                    string filePath = file.Key;
+                    string filePath = fileRecord.FilePath;
                     string[] path = filePath.Split('\\');
                     fileName = path[path.Length - 1];
-                    string fileContent = file.Value;
+                    string fileContent = fileRecord.Content;
 
                     string patientName = fileName.Split(FileNameSeparator)[0];
                     string patientId = fileName.Split(FileNameSeparator)[1].Split(Core.DataBase.FileExtensionSeparator)[0];

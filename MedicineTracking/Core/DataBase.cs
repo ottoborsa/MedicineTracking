@@ -36,13 +36,13 @@ namespace MedicineTracking.Core
         }
 
 
-        private static Dictionary<string, string> GetFolderContent(string path)
+        private static List<FileRecord> GetFolderContent(string path)
         {
-            Dictionary<string, string> result = new();
+            List<FileRecord> result = new();
 
             foreach (string file in Directory.EnumerateFiles(path, $"*{FileExtensionSeparator}{FileExtension}"))
             {
-                result.Add(file, File.ReadAllText(file));
+                result.Add(new FileRecord(file, File.ReadAllText(file)));
             }
 
             return result;

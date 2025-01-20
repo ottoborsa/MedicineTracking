@@ -59,6 +59,7 @@
     <Compile Include="Messaging\SerializedException.cs" />
     <Compile Include="Messaging\SystemError.cs" />
     <Compile Include="Messaging\Translation.cs" />
+    <Compile Include="Model\FileRecord.cs" />
     <Compile Include="Query\Common.cs" />
     <Compile Include="Service\Translate.cs" />
     <Compile Include="Utility\DateTools.cs" />

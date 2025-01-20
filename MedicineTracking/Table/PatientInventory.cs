@@ -33,17 +33,18 @@ namespace MedicineTracking.Table
 
         public static List<Model.PatientInventory> Parse(Dictionary<string, string> files)
         {
-            try
+            List<Model.PatientInventory> result = new List<Model.PatientInventory>();
+
+            foreach (KeyValuePair<string, string> file in files)
             {
-                List<Model.PatientInventory> result = new List<Model.PatientInventory>();
+                List<PatientInventoryRecord> list = new List<PatientInventoryRecord>();
+                string fileName = String.Empty;
 
-                foreach (KeyValuePair<string, string> file in files)
+                try
                 {
-                    List<PatientInventoryRecord> list = new List<PatientInventoryRecord>();
-
                     string filePath = file.Key;
                     string[] path = filePath.Split('\\');
-                    string fileName = path[path.Length - 1];
+                    fileName = path[path.Length - 1];
                     string fileContent = file.Value;
 
                     string patientName = fileName.Split(FileNameSeparator)[0];
@@ -85,7 +86,7 @@ namespace MedicineTracking.Table
                             if (incrementDate >= inventoryDate)
                             {
                                 string incrementValueString = inventoryMatrix.GetValue(incrementColumns[j], i);
-                                decimal incrementValue = Decimal.Parse(String.IsNullOrEmpty(incrementValueString) ? "0" : incrementValueString, CultureInfo.InvariantCulture);
+                                decimal incrementValue = String.IsNullOrEmpty(incrementValueString) ? 0 : Decimal.Parse(incrementValueString, CultureInfo.InvariantCulture);
 
                                 if (incrementValue != 0)
                                 {
@@ -101,17 +102,18 @@ namespace MedicineTracking.Table
                     Model.PatientInventory patient = new Model.PatientInventory(patientId, patientName, list);
                     result.Add(patient);
                 }
+                catch (Exception ex)
+                {
+                    throw new SerializedException(
+                        new Translation(
+                            $"{nameof(Table)}.{nameof(PatientInventory)}",
+                            new() { { Keys.FileName, fileName }, { Keys.ErrorMessage, ex.Message } }
+                        )
+                    );
+                }
+            }
 
-                return result;
-            }
-            catch (Exception ex)
-            {
-                throw GeneralSystemError.Exception(
-                    $"{nameof(Table)}.{nameof(PatientInventory)}.{nameof(Parse)}",
-                    ex,
-                    new() { { Keys.Description, "pina" } }
-                );
-            }
+            return result;
         }
     }
 }

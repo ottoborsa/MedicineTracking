@@ -54,17 +54,18 @@ namespace MedicineTracking.Table
 
         public static List<MedicineDosage> Parse(Dictionary<string, string> files)
         {
-            try
+            List<MedicineDosage> result = new List<MedicineDosage>();
+
+            foreach (KeyValuePair<string, string> file in files)
             {
-                List<MedicineDosage> result = new List<MedicineDosage>();
+                List<MedicineDosageRecord> list = new List<MedicineDosageRecord>();
+                string fileName = String.Empty;
 
-                foreach (KeyValuePair<string, string> file in files)
+                try
                 {
-                    List<MedicineDosageRecord> list = new List<MedicineDosageRecord>();
-
                     string filePath = file.Key;
                     string[] path = filePath.Split('\\');
-                    string fileName = path[path.Length - 1];
+                    fileName = path[path.Length - 1];
                     string fileContent = file.Value;
 
                     string patientName = fileName.Split(FileNameSeparator)[0];
@@ -77,7 +78,7 @@ namespace MedicineTracking.Table
                         string medicineId = dosageMatrix.GetValue(medicine_id, i);
                         DosageType dosageType = (DosageType)Enum.Parse(typeof(DosageType), dosageMatrix.GetValue(dosage_type_code, i));
                         string dosageValueString = dosageMatrix.GetValue(dosage_value, i);
-                        decimal dosageValue = Decimal.Parse(String.IsNullOrEmpty(dosageValueString) ? "0" : dosageValueString, CultureInfo.InvariantCulture);
+                        decimal dosageValue = String.IsNullOrEmpty(dosageValueString) ? 0 : Decimal.Parse(dosageValueString, CultureInfo.InvariantCulture);
                         string dosageParam = dosageMatrix.GetValue(dosage_type_parameter, i);
                         DateTime validFrom = DateTime.Parse(dosageMatrix.GetValue(valid_from, i));
                         DateTime validTo = DateTime.Parse(String.IsNullOrEmpty(dosageMatrix.GetValue(valid_to, i)) ? DateTools.ForeverDateString : dosageMatrix.GetValue(valid_to, i));
@@ -89,17 +90,18 @@ namespace MedicineTracking.Table
                     MedicineDosage patient = new MedicineDosage(patientId, patientName, list);
                     result.Add(patient);
                 }
+                catch (Exception ex)
+                {
+                    throw new SerializedException(
+                        new Translation(
+                            $"{nameof(Table)}.{nameof(PatientDosage)}",
+                            new() { { Keys.FileName, fileName }, { Keys.ErrorMessage, ex.Message } }
+                        )
+                    );
+                }
+            }
 
-                return result;
-            }
-            catch (Exception ex)
-            {
-                throw GeneralSystemError.Exception(
-                    $"{nameof(Table)}.{nameof(PatientDosage)}.{nameof(Parse)}",
-                    ex,
-                    new() { { Keys.Description, "pina" } }
-                );
-            }
+            return result;
         }
     }
 }

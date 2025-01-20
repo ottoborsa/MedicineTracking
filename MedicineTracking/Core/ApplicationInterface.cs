@@ -17,6 +17,8 @@ namespace MedicineTracking.Core
 
         private static ProgressBar? ProgressBar = MainForm.progressBar1;
 
+        public static System.Text.Encoding ApplicationEncoding { get; private set; } = System.Text.Encoding.Default;
+
 
 
 

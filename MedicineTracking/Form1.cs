@@ -119,7 +119,7 @@ namespace MedicineTracking
 
                 if (saveFileDialog1.ShowDialog() == DialogResult.OK)
                 {
-                    File.WriteAllText(saveFileDialog1.FileName, fileContent);
+                    File.WriteAllText(saveFileDialog1.FileName, fileContent, ApplicationInterface.ApplicationEncoding);
                 }
             }
         }

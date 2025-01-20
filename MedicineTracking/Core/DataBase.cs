@@ -42,7 +42,7 @@ namespace MedicineTracking.Core
 
             foreach (string file in Directory.EnumerateFiles(path, $"*{FileExtensionSeparator}{FileExtension}"))
             {
-                result.Add(new FileRecord(file, File.ReadAllText(file)));
+                result.Add(new FileRecord(file, File.ReadAllText(file, ApplicationInterface.ApplicationEncoding)));
             }
 
             return result;

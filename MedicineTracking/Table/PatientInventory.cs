@@ -9,6 +9,7 @@ using MedicineTracking.Model;
 using MedicineTracking.Utility;
 using MedicineTracking.Messaging;
 using MedicineTracking.Messaging.Const;
+using MedicineTracking.Core;
 
 
 namespace MedicineTracking.Table
@@ -37,8 +38,16 @@ namespace MedicineTracking.Table
         {
             List<Model.PatientInventory> result = new();
 
+            int fileCounter = 0;
             foreach (FileRecord fileRecord in files)
             {
+                // Progressbar: 1st event; 25% range of whole
+                fileCounter++;
+                int progressPercentage = (int)Math.Round((decimal)(fileCounter) / (decimal)(files.Count) * 100);
+                int progress = 0 + progressPercentage / 4;
+                ApplicationInterface.SetProgressBarValue(progress);
+
+
                 List<PatientInventoryRecord> list = new();
                 string fileName = String.Empty;
                 string medicineId = String.Empty;
@@ -137,7 +146,12 @@ namespace MedicineTracking.Table
                     throw new SerializedException(
                         new Translation(
                             $"{nameof(Table)}.{nameof(PatientInventory)}",
-                            new() { { Keys.FileName, fileName }, { Keys.MedicineId, medicineId }, { Keys.ErrorMessage, ex.Message } }
+                            new()
+                            {
+                                { Keys.FileName, fileName },
+                                { Keys.MedicineId, medicineId },
+                                { Keys.ErrorMessage, ex.Message }
+                            }
                         )
                     );
                 }

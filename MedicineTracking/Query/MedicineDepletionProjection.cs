@@ -53,7 +53,7 @@ namespace MedicineTracking.Query
                 // iterate on inventory records
                 foreach (PatientInventoryRecord inventoryRecord in patient.PatientInventoryRecords)
                 {
-
+                    // Progressbar: 3rd event; 50% range of whole
                     progressBarCounter++;
                     int progressPercentage = (int)Math.Round((decimal)(progressBarCounter) / (decimal)(progressBarSum) * 100);
                     int progress = 50 + progressPercentage / 2;

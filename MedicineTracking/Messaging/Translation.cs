@@ -5,11 +5,11 @@ using System;
 
 using MedicineTracking.Messaging.Const;
 
-
+#nullable enable
 namespace MedicineTracking.Messaging
 {
-    using Arguments = Dictionary<string, string?>;
 
+    using Arguments = Dictionary<string, string?>;
 
     public class Translation
     {
@@ -67,3 +67,4 @@ namespace MedicineTracking.Messaging
         }
     }
 }
+#nullable disable

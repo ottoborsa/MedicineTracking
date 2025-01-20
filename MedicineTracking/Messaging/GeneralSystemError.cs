@@ -4,6 +4,7 @@ using System;
 
 using MedicineTracking.Messaging.Const;
 
+#nullable enable
 namespace MedicineTracking.Messaging
 {
     using Properties = Dictionary<string, string?>;
@@ -55,3 +56,4 @@ namespace MedicineTracking.Messaging
         }
     }
 }
+#nullable disable

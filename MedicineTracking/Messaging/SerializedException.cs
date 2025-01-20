@@ -3,7 +3,7 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System;
 
-
+#nullable enable
 namespace MedicineTracking.Messaging
 {
     using Properties = Dictionary<string, string?>;
@@ -80,3 +80,4 @@ namespace MedicineTracking.Messaging
         }
     }
 }
+#nullable disable

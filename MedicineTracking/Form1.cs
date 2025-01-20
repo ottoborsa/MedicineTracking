@@ -164,20 +164,14 @@ namespace MedicineTracking
 
         public static void ExceptionDialog(Exception ex)
         {
-            ErrorDialog(typeof(Exception), ex.ToString());
+            ErrorDialog(typeof(Exception), ex.Message);
         }
 
         public static void ExceptionDialog(SerializedException ex)
         {
-            SystemError error = SystemError.ParseException(ex);
-            Translation translation = Translation.ParseException(ex);
+            SystemError error = JsonConvert.DeserializeObject<SystemError>(SystemError.ParseException(ex).ErrorMessage);
 
-
-            string message = JsonConvert.SerializeObject(error, Formatting.Indented);
-
-
-
-            ErrorDialog(typeof(SerializedException), message);
+            ErrorDialog(typeof(SerializedException), JsonConvert.SerializeObject(error, Formatting.Indented));
         }
 
         private static DialogResult ErrorDialog(Type type, string message)

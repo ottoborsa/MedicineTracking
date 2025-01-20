@@ -3,7 +3,7 @@
 using System;
 using System.Collections.Generic;
 using System.Globalization;
-
+using MedicineTracking.Core;
 using MedicineTracking.Model;
 using MedicineTracking.Utility;
 
@@ -25,8 +25,10 @@ namespace MedicineTracking.Query
 
 
 
-        public static Matrix GetResult(DateTime dateFrom, DateTime dateTo, List<PatientInventory> patientInventories, List<MedicineDosage> medicineDosages)
+        public static Matrix GetResult(DataBase db, DateTime dateFrom, DateTime dateTo)
         {
+            List<PatientInventory> patientInventories = db.Table_PatientInventory;
+            List<MedicineDosage> medicineDosages = db.Table_PatientDosage;
 
             Matrix result = new Matrix(Signature);
 

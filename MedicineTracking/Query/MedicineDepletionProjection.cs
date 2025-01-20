@@ -5,6 +5,7 @@ using System.Linq;
 
 using MedicineTracking.Utility;
 using MedicineTracking.Model;
+using MedicineTracking.Core;
 
 
 namespace MedicineTracking.Query
@@ -31,8 +32,11 @@ namespace MedicineTracking.Query
 
 
 
-        public static Matrix GetResult(List<PatientInventory> patientInventories, List<MedicineDosage> medicineDosages)
+        public static Matrix GetResult(DataBase db)
         {
+            List<PatientInventory> patientInventories = db.Table_PatientInventory;
+            List<MedicineDosage> medicineDosages = db.Table_PatientDosage;
+
             Matrix result = new Matrix(Signature);
 
             int progressBarSum = 0;

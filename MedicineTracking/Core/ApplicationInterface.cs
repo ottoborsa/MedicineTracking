@@ -1,5 +1,6 @@
 ﻿
 using System;
+using System.Collections.Generic;
 using System.Windows.Forms;
 
 using MedicineTracking.Utility;
@@ -19,12 +20,13 @@ namespace MedicineTracking.Core
 
 
 
-        public static (string, string) GetDataBaseTableFolders()
+        public static Dictionary<string, string> GetDataBaseTableFolders()
         {
-            return (
-                MainForm.PatientInventoryFolderTextBox.Text.Trim(),
-                MainForm.PatientDosageFolderTextBox.Text.Trim()
-            );
+            return new()
+            {
+                { nameof(Table.PatientInventory), MainForm.PatientInventoryFolderTextBox.Text.Trim() },
+                { nameof(Table.PatientDosage), MainForm.PatientDosageFolderTextBox.Text.Trim() }
+            };
         }
 
         public static void SetProgressBarValue(int value)
@@ -37,18 +39,12 @@ namespace MedicineTracking.Core
 
         public static string MedicineDecrementQuery(DateTime dateFrom, DateTime dateTo)
         {
-            DataBase db = new DataBase();
-            Matrix result = Query.MedicineDecrement.GetResult(dateFrom, dateTo, db.Table_PatientInventory, db.Table_PatientDosage);
-
-            return CsvParser.FromMatrix(result);
+            return CsvParser.FromMatrix(Query.MedicineDecrement.GetResult(new DataBase(), dateFrom, dateTo));
         }
 
         public static string MedicineDepletionProjectionQuery()
         {
-            DataBase db = new DataBase();
-            Matrix result = Query.MedicineDepletionProjection.GetResult(db.Table_PatientInventory, db.Table_PatientDosage);
-
-            return CsvParser.FromMatrix(result);
+            return CsvParser.FromMatrix(Query.MedicineDepletionProjection.GetResult(new DataBase()));
         }
     }
 }

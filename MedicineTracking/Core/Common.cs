@@ -1,10 +1,6 @@
 ﻿
 using System;
-using System.Collections.Generic;
-using System.IO;
 using System.Windows.Forms;
-
-using MedicineTracking.Model;
 using MedicineTracking.Utility;
 
 namespace MedicineTracking.Core
@@ -14,11 +10,7 @@ namespace MedicineTracking.Core
     public static class Common
     {
 
-        public const string FileExtension = "csv";
-
         private static ProgressBar ProgressBar;
-
-
 
 
 
@@ -31,18 +23,6 @@ namespace MedicineTracking.Core
             }
         }
 
-        private static Dictionary<string, string> GetFolderContent(string folder)
-        {
-            Dictionary<string, string> result = new Dictionary<string, string>();
-
-            foreach (string file in Directory.EnumerateFiles(folder, $"*.{FileExtension}"))
-            {
-                result.Add(file, File.ReadAllText(file));
-            }
-
-            return result;
-        }
-
         public static string MedicineDecrementQuery(
             ProgressBar progressBar,
             string inventoryFolderPath,
@@ -53,10 +33,8 @@ namespace MedicineTracking.Core
         {
             ProgressBar = progressBar;
 
-            List<PatientInventory> patientInventories = Table.PatientInventory.Parse(GetFolderContent(inventoryFolderPath));
-            List<MedicineDosage> medicineDosages = Table.PatientDosage.Parse(GetFolderContent(dosageFolderPath));
-
-            Matrix result = Query.MedicineDecrement.GetResult(dateFrom, dateTo, patientInventories, medicineDosages);
+            DataBase db = new DataBase(inventoryFolderPath, dosageFolderPath);
+            Matrix result = Query.MedicineDecrement.GetResult(dateFrom, dateTo, db.Table_PatientInventory, db.Table_PatientDosage);
 
             return CsvParser.FromMatrix(result);
         }
@@ -69,10 +47,8 @@ namespace MedicineTracking.Core
         {
             ProgressBar = progressBar;
 
-            List<PatientInventory> patientInventories = Table.PatientInventory.Parse(GetFolderContent(inventoryFolderPath));
-            List<MedicineDosage> medicineDosages = Table.PatientDosage.Parse(GetFolderContent(dosageFolderPath));
-
-            Matrix result = Query.MedicineDepletionProjection.GetResult(patientInventories, medicineDosages);
+            DataBase db = new DataBase(inventoryFolderPath, dosageFolderPath);
+            Matrix result = Query.MedicineDepletionProjection.GetResult(db.Table_PatientInventory, db.Table_PatientDosage);
 
             return CsvParser.FromMatrix(result);
         }

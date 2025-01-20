@@ -45,7 +45,9 @@ namespace MedicineTracking.Query
             for (int i = 0; i < result.GetSize(); i++)
             {
 
-                Core.Common.SetProgressBarValue((int)Math.Round((decimal)((i+1) / result.GetSize() * 100)));
+                int progressPercentage = (int)Math.Round((decimal)(i + 1) / (decimal)(result.GetSize()) * 100);
+                int progress = 50 + progressPercentage / 2;
+                Core.Common.SetProgressBarValue(progress);
 
                 string medicineId = result.GetValue(Table.PatientInventory.medicine_id, i);
 

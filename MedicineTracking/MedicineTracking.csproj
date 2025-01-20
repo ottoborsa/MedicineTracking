@@ -52,6 +52,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Core\DataBase.cs" />
     <Compile Include="Messaging\Const\IndividualStatusCodes.cs" />
     <Compile Include="Messaging\Const\Keys.cs" />
     <Compile Include="Messaging\GeneralSystemError.cs" />
@@ -59,6 +60,7 @@
     <Compile Include="Messaging\SystemError.cs" />
     <Compile Include="Messaging\Translation.cs" />
     <Compile Include="Query\Common.cs" />
+    <Compile Include="Service\Translate.cs" />
     <Compile Include="Utility\DateTools.cs" />
     <Compile Include="Query\MedicineDepletionProjection.cs" />
     <Compile Include="Query\MedicineDecrement.cs" />
@@ -91,8 +93,8 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <None Include="Messaging\Language\en.json" />
-    <None Include="Messaging\Language\hu.json" />
+    <None Include="Service\Language\en.json" />
+    <None Include="Service\Language\hu.json" />
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>

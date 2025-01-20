@@ -79,7 +79,7 @@ namespace MedicineTracking
                         dateTimePicker1.Value,
                         dateTimePicker2.Value
                     ),
-                    Common.FileExtension
+                    DataBase.FileExtension
                 );
             });
         }
@@ -95,7 +95,7 @@ namespace MedicineTracking
                         PatientInventoryFolderTextBox.Text,
                         PatientDosageFolderTextBox.Text
                     ),
-                    Common.FileExtension
+                    DataBase.FileExtension
                 );
             });
         }

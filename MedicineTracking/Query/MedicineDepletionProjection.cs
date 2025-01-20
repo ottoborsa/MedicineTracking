@@ -51,7 +51,10 @@ namespace MedicineTracking.Query
                 {
 
                     progressBarCounter++;
-                    Core.Common.SetProgressBarValue((int)Math.Round((decimal)progressBarCounter / progressBarSum * 100));
+                    int progressPercentage = (int)Math.Round((decimal)(progressBarCounter) / (decimal)(progressBarSum) * 100);
+                    int progress = 50 + progressPercentage / 2;
+                    Core.Common.SetProgressBarValue(progress);
+
 
                     DateTime depletionDay = DateTime.Parse(DateTools.ForeverDateString);
                     decimal amount = inventoryRecord.MedicineCount;

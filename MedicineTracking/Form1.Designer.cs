@@ -282,6 +282,7 @@ namespace MedicineTracking
 
         public System.Windows.Forms.TextBox PatientInventoryFolderTextBox;
         public System.Windows.Forms.TextBox PatientDosageFolderTextBox;
+        public System.Windows.Forms.ProgressBar progressBar1;
 
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label3;
@@ -303,7 +304,5 @@ namespace MedicineTracking
         private System.Windows.Forms.ToolStripMenuItem releaseInfoToolStripMenuItem;
         private System.Windows.Forms.SaveFileDialog saveFileDialog1;
         private System.Windows.Forms.TabPage tabPage2;
-        private System.Windows.Forms.ProgressBar progressBar1;
     }
 }
-

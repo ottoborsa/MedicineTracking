@@ -1,8 +1,10 @@
 ﻿
 using System;
 using System.Windows.Forms;
+
 using MedicineTracking.Utility;
 
+#nullable enable
 namespace MedicineTracking.Core
 {
 
@@ -10,8 +12,7 @@ namespace MedicineTracking.Core
     public static class Common
     {
 
-        private static ProgressBar ProgressBar;
-
+        private static ProgressBar? ProgressBar = Program.MainForm.progressBar1;
 
 
 
@@ -23,20 +24,16 @@ namespace MedicineTracking.Core
             }
         }
 
-        public static string MedicineDecrementQuery(ProgressBar progressBar, DateTime dateFrom, DateTime dateTo)
+        public static string MedicineDecrementQuery(DateTime dateFrom, DateTime dateTo)
         {
-            ProgressBar = progressBar;
-
             DataBase db = new DataBase();
             Matrix result = Query.MedicineDecrement.GetResult(dateFrom, dateTo, db.Table_PatientInventory, db.Table_PatientDosage);
 
             return CsvParser.FromMatrix(result);
         }
 
-        public static string MedicineDepletionProjectionQuery(ProgressBar progressBar)
+        public static string MedicineDepletionProjectionQuery()
         {
-            ProgressBar = progressBar;
-
             DataBase db = new DataBase();
             Matrix result = Query.MedicineDepletionProjection.GetResult(db.Table_PatientInventory, db.Table_PatientDosage);
 
@@ -44,3 +41,4 @@ namespace MedicineTracking.Core
         }
     }
 }
+#nullable disable

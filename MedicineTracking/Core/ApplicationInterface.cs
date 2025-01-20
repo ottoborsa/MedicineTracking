@@ -9,12 +9,23 @@ namespace MedicineTracking.Core
 {
 
 
-    public static class Common
+    public static class ApplicationInterface
     {
 
-        private static ProgressBar? ProgressBar = Program.MainForm.progressBar1;
+        private static Form1 MainForm = Program.MainForm;
+
+        private static ProgressBar? ProgressBar = MainForm.progressBar1;
 
 
+
+
+        public static (string, string) GetDataBaseTableFolders()
+        {
+            return (
+                MainForm.PatientInventoryFolderTextBox.Text.Trim(),
+                MainForm.PatientDosageFolderTextBox.Text.Trim()
+            );
+        }
 
         public static void SetProgressBarValue(int value)
         {

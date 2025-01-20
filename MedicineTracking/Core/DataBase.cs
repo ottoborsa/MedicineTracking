@@ -28,8 +28,8 @@ namespace MedicineTracking.Core
 
         public DataBase()
         {
-            Path_PatientInventoryTable = Program.MainForm.PatientInventoryFolderTextBox.Text.Trim();
-            Path_PatientDosageTable = Program.MainForm.PatientDosageFolderTextBox.Text.Trim();
+            Path_PatientInventoryTable = ApplicationInterface.GetDataBaseTableFolders().Item1;
+            Path_PatientDosageTable = ApplicationInterface.GetDataBaseTableFolders().Item2;
 
             Table_PatientInventory = Table.PatientInventory.Parse(GetFolderContent(Path_PatientInventoryTable));
             Table_PatientDosage = Table.PatientDosage.Parse(GetFolderContent(Path_PatientDosageTable));

@@ -61,7 +61,7 @@ namespace MedicineTracking
             }
             finally
             {
-                Common.SetProgressBarValue(0);
+                ApplicationInterface.SetProgressBarValue(0);
                 SetControlsState(true);
             }
         }
@@ -71,8 +71,8 @@ namespace MedicineTracking
             Try(() =>
             {
                 SaveFile(
-                    $"{GetNow()} - {nameof(Common.MedicineDecrementQuery)} - {dateTimePicker1.Value.ToString(DateTools.DayPattern)} - {dateTimePicker2.Value.ToString(DateTools.DayPattern)}",
-                    Common.MedicineDecrementQuery(dateTimePicker1.Value, dateTimePicker2.Value),
+                    $"{GetNow()} - {nameof(ApplicationInterface.MedicineDecrementQuery)} - {dateTimePicker1.Value.ToString(DateTools.DayPattern)} - {dateTimePicker2.Value.ToString(DateTools.DayPattern)}",
+                    ApplicationInterface.MedicineDecrementQuery(dateTimePicker1.Value, dateTimePicker2.Value),
                     DataBase.FileExtension
                 );
             });
@@ -83,8 +83,8 @@ namespace MedicineTracking
             Try(() =>
             {
                 SaveFile(
-                    $"{GetNow()} - {nameof(Common.MedicineDepletionProjectionQuery)}",
-                    Common.MedicineDepletionProjectionQuery(),
+                    $"{GetNow()} - {nameof(ApplicationInterface.MedicineDepletionProjectionQuery)}",
+                    ApplicationInterface.MedicineDepletionProjectionQuery(),
                     DataBase.FileExtension
                 );
             });
@@ -152,12 +152,12 @@ namespace MedicineTracking
         }
 
 
-        public static void ExceptionDialog(Exception ex)
+        private static void ExceptionDialog(Exception ex)
         {
             ErrorDialog(typeof(Exception), ex.Message);
         }
 
-        public static void ExceptionDialog(SerializedException ex)
+        private static void ExceptionDialog(SerializedException ex)
         {
             SystemError error = JsonConvert.DeserializeObject<SystemError>(SystemError.ParseException(ex).ErrorMessage);
 

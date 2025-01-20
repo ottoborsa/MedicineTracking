@@ -44,6 +44,9 @@ namespace MedicineTracking.Query
             // iterate on result Matrix (medicine records)
             for (int i = 0; i < result.GetSize(); i++)
             {
+
+                Core.Common.SetProgressBarValue((int)Math.Round((decimal)((i+1) / result.GetSize() * 100)));
+
                 string medicineId = result.GetValue(Table.PatientInventory.medicine_id, i);
 
                 // iterate on patients

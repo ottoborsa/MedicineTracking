@@ -14,9 +14,9 @@ namespace MedicineTracking
     {
 
 
-        public const string DefaultInventoryFolder = "x:\\REPOS\\_test_medicine_database\\patient inventory\\";
+        public const string DefaultInventoryFolder = "patient inventory";
 
-        public const string DefaultDosageFolder = "x:\\REPOS\\_test_medicine_database\\patient dosage\\";
+        public const string DefaultDosageFolder = "patient dosage";
 
 
 
@@ -29,20 +29,24 @@ namespace MedicineTracking
 
             dateTimePicker1.Value = new DateTime(DateTime.Now.Year, DateTime.Now.Month, 1);
             dateTimePicker2.Value = dateTimePicker1.Value.AddMonths(1).AddDays(-1);
+
+            PatientInventoryFolderTextBox.Text = Path.Combine(Directory.GetCurrentDirectory(), DefaultInventoryFolder);
+            PatientDosageFolderTextBox.Text = Path.Combine(Directory.GetCurrentDirectory(), DefaultDosageFolder);
         }
+
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            PatientInventoryFolderTextBox.Text = DefaultInventoryFolder;
-            PatientDosageFolderTextBox.Text = DefaultDosageFolder;
         }
-
 
         private void medicineDecrement_Click(object sender, EventArgs e)
         {
+            SetControlsState(false);
+
             SaveFile(
                 $"{GetNow()} - {nameof(Common.MedicineDecrementQuery)} - {dateTimePicker1.Value.ToString(DateTools.DayPattern)} - {dateTimePicker2.Value.ToString(DateTools.DayPattern)}",
                 Common.MedicineDecrementQuery(
+                    progressBar1,
                     PatientInventoryFolderTextBox.Text,
                     PatientDosageFolderTextBox.Text,
                     dateTimePicker1.Value,
@@ -50,18 +54,27 @@ namespace MedicineTracking
                 ),
                 Common.FileExtension
             );
+
+            Common.SetProgressBarValue(0);
+            SetControlsState(true);
         }
 
         private void medicineDepletionProjection_Click(object sender, EventArgs e)
         {
+            SetControlsState(false);
+
             SaveFile(
                 $"{GetNow()} - {nameof(Common.MedicineDepletionProjectionQuery)}",
                 Common.MedicineDepletionProjectionQuery(
+                    progressBar1,
                     PatientInventoryFolderTextBox.Text,
                     PatientDosageFolderTextBox.Text
                 ),
                 Common.FileExtension
             );
+
+            Common.SetProgressBarValue(0);
+            SetControlsState(true);
         }
 
 
@@ -117,6 +130,16 @@ namespace MedicineTracking
         private void exitToolStripMenuItem_Click(object sender, EventArgs e)
         {
             Close();
+        }
+
+        private void SetControlsState(bool state)
+        {
+            button1.Enabled = state;
+            button2.Enabled = state;
+            medicineDecrement.Enabled = state;
+            medicineDepletionProjection.Enabled = state;
+            dateTimePicker1.Enabled = state;
+            dateTimePicker2.Enabled = state;
         }
     }
 }

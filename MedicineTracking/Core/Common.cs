@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Windows.Forms;
 
 using MedicineTracking.Model;
 using MedicineTracking.Utility;
@@ -16,6 +17,17 @@ namespace MedicineTracking.Core
 
         public const string FileExtension = "csv";
 
+        private static ProgressBar ProgressBar;
+
+
+
+        public static void SetProgressBarValue(int value)
+        {
+            if (ProgressBar != null && ProgressBar.Value != value)
+            {
+                ProgressBar.Value = value;
+            }
+        }
 
         private static Dictionary<string, string> GetFolderContent(string folder)
         {
@@ -29,20 +41,34 @@ namespace MedicineTracking.Core
             return result;
         }
 
-        public static string MedicineDecrementQuery(string inventoryFolder, string dosageFolder, DateTime dateFrom, DateTime dateTo)
+        public static string MedicineDecrementQuery(
+            ProgressBar progressBar,
+            string inventoryFolderPath,
+            string dosageFolderPath,
+            DateTime dateFrom,
+            DateTime dateTo
+        )
         {
-            List<PatientInventory> patientInventories = Table.PatientInventory.Parse(GetFolderContent(inventoryFolder));
-            List<MedicineDosage> medicineDosages = Table.PatientDosage.Parse(GetFolderContent(dosageFolder));
+            ProgressBar = progressBar;
+
+            List<PatientInventory> patientInventories = Table.PatientInventory.Parse(GetFolderContent(inventoryFolderPath));
+            List<MedicineDosage> medicineDosages = Table.PatientDosage.Parse(GetFolderContent(dosageFolderPath));
 
             Matrix result = Query.MedicineDecrement.GetResult(dateFrom, dateTo, patientInventories, medicineDosages);
 
             return CsvParser.FromMatrix(result);
         }
 
-        public static string MedicineDepletionProjectionQuery(string inventoryFolder, string dosageFolder)
+        public static string MedicineDepletionProjectionQuery(
+            ProgressBar progressBar,
+            string inventoryFolderPath,
+            string dosageFolderPath
+        )
         {
-            List<PatientInventory> patientInventories = Table.PatientInventory.Parse(GetFolderContent(inventoryFolder));
-            List<MedicineDosage> medicineDosages = Table.PatientDosage.Parse(GetFolderContent(dosageFolder));
+            ProgressBar = progressBar;
+
+            List<PatientInventory> patientInventories = Table.PatientInventory.Parse(GetFolderContent(inventoryFolderPath));
+            List<MedicineDosage> medicineDosages = Table.PatientDosage.Parse(GetFolderContent(dosageFolderPath));
 
             Matrix result = Query.MedicineDepletionProjection.GetResult(patientInventories, medicineDosages);
 

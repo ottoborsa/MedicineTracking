@@ -35,6 +35,12 @@ namespace MedicineTracking.Query
         {
             Matrix result = new Matrix(Signature);
 
+            int progressBarSum = 0;
+            int progressBarCounter = 0;
+            foreach (PatientInventory inventory in patientInventories)
+            {
+                progressBarSum += inventory.PatientInventoryRecords.Count;
+            }
 
             // iterate on patients
             foreach (PatientInventory patient in patientInventories)
@@ -43,6 +49,9 @@ namespace MedicineTracking.Query
                 // iterate on inventory records
                 foreach (PatientInventoryRecord inventoryRecord in patient.PatientInventoryRecords)
                 {
+
+                    progressBarCounter++;
+                    Core.Common.SetProgressBarValue((int)Math.Round((decimal)progressBarCounter / progressBarSum * 100));
 
                     DateTime depletionDay = DateTime.Parse(DateTools.ForeverDateString);
                     decimal amount = inventoryRecord.MedicineCount;

@@ -108,11 +108,11 @@ namespace MedicineTracking
             }
         }
 
-        private void SaveFile(string defaultFilename, string fileContent, string fileExtension)
+        private void SaveFile(string fileName, string fileContent, string fileExtension)
         {
             using (saveFileDialog1)
             {
-                saveFileDialog1.FileName = defaultFilename;
+                saveFileDialog1.FileName = fileName;
                 saveFileDialog1.Filter = $"{fileExtension} files (*.{fileExtension})|*.{fileExtension}|All files (*.*)|*.*";
                 saveFileDialog1.FilterIndex = 1;
                 saveFileDialog1.RestoreDirectory = true;

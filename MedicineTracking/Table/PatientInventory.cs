@@ -54,7 +54,7 @@ namespace MedicineTracking.Table
 
                 try
                 {
-                    string filePath = fileRecord.FilePath;
+                    string filePath = fileRecord.Path;
                     string[] path = filePath.Split('\\');
                     string fileContent = fileRecord.Content;
                     fileName = path[path.Length - 1];

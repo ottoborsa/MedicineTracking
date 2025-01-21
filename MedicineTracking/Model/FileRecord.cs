@@ -3,14 +3,14 @@ namespace MedicineTracking.Model
 {
     internal class FileRecord
     {
-        public string FilePath { get; private set; }
+        public string Path { get; private set; }
 
         public string Content { get; private set; }
 
 
-        public FileRecord(string filePath, string content)
+        public FileRecord(string path, string content)
         {
-            FilePath = filePath;
+            Path = path;
             Content = content;
         }
     }

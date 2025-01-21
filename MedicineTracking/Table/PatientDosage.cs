@@ -79,9 +79,13 @@ namespace MedicineTracking.Table
                     string fileContent = fileRecord.Content;
                     fileName = path[path.Length - 1];
 
-                    string patientName = fileName.Split(FileNameSeparator)[0];
-                    string patientId = fileName.Split(FileNameSeparator)[1].Split(Core.DataBase.FileExtensionSeparator)[0];
+                    string patientName = fileName.Split(FileNameSeparator)[0].Trim();
+                    string patientId = fileName.Split(FileNameSeparator)[1].Split(DataBase.FileExtensionSeparator)[0].Trim();
 
+                    if (String.IsNullOrEmpty(patientId))
+                    {
+                        throw new SerializedException("InvalidPatientId");
+                    }
                     if (result.Where(element => element.PatientId == patientId).Count() > 0)
                     {
                         throw new SerializedException("DuplicateOfPatient");
@@ -91,14 +95,19 @@ namespace MedicineTracking.Table
 
                     for (int i = 0; i < dosageMatrix.GetSize(); i++)
                     {
-                        medicineId = dosageMatrix.GetValue(medicine_id, i);
+                        medicineId = dosageMatrix.GetValue(medicine_id, i).Trim();
 
-                        DosageType dosageType = (DosageType)Enum.Parse(typeof(DosageType), dosageMatrix.GetValue(dosage_type_code, i));
-                        string dosageValueString = dosageMatrix.GetValue(dosage_value, i);
+                        if (String.IsNullOrEmpty(medicineId))
+                        {
+                            throw new SerializedException("InvalidMedicineId");
+                        }
+
+                        DosageType dosageType = (DosageType)Enum.Parse(typeof(DosageType), dosageMatrix.GetValue(dosage_type_code, i).Trim());
+                        string dosageValueString = dosageMatrix.GetValue(dosage_value, i).Trim();
                         decimal dosageValue = String.IsNullOrEmpty(dosageValueString) ? 0 : Decimal.Parse(dosageValueString, CultureInfo.InvariantCulture);
-                        string dosageParam = dosageMatrix.GetValue(dosage_type_parameter, i);
-                        DateTime validFrom = DateTime.Parse(dosageMatrix.GetValue(valid_from, i));
-                        DateTime validTo = DateTime.Parse(String.IsNullOrEmpty(dosageMatrix.GetValue(valid_to, i)) ? DateTools.ForeverDateString : dosageMatrix.GetValue(valid_to, i));
+                        string dosageParam = dosageMatrix.GetValue(dosage_type_parameter, i).Trim();
+                        DateTime validFrom = DateTime.Parse(dosageMatrix.GetValue(valid_from, i).Trim());
+                        DateTime validTo = DateTime.Parse(String.IsNullOrEmpty(dosageMatrix.GetValue(valid_to, i).Trim()) ? DateTools.ForeverDateString : dosageMatrix.GetValue(valid_to, i).Trim());
 
                         if (validFrom > validTo)
                         {

@@ -59,9 +59,13 @@ namespace MedicineTracking.Table
                     string fileContent = fileRecord.Content;
                     fileName = path[path.Length - 1];
 
-                    string patientName = fileName.Split(FileNameSeparator)[0];
-                    string patientId = fileName.Split(FileNameSeparator)[1].Split(Core.DataBase.FileExtensionSeparator)[0];
+                    string patientName = fileName.Split(FileNameSeparator)[0].Trim();
+                    string patientId = fileName.Split(FileNameSeparator)[1].Split(DataBase.FileExtensionSeparator)[0].Trim();
 
+                    if (String.IsNullOrEmpty(patientId))
+                    {
+                        throw new SerializedException("InvalidPatientId");
+                    }
                     if (result.Where(element => element.PatientId == patientId).Count() > 0)
                     {
                         throw new SerializedException("DuplicateOfPatient");
@@ -69,7 +73,7 @@ namespace MedicineTracking.Table
 
                     Matrix inventoryMatrix = CsvParser.Parse(fileContent);
 
-                    string[] signature = inventoryMatrix.Signature;
+                    string[] signature = inventoryMatrix.Signature.Select(element => element.Trim()).ToArray();
                     string lastInventoryColumn = String.Empty;
                     List<string> incrementColumns = new List<string>();
                     foreach (string columnName in signature)
@@ -91,17 +95,21 @@ namespace MedicineTracking.Table
 
                     for (int i = 0; i < inventoryMatrix.GetSize(); i++)
                     {
-                        medicineId = inventoryMatrix.GetValue(medicine_id, i);
+                        medicineId = inventoryMatrix.GetValue(medicine_id, i).Trim();
 
+                        if (String.IsNullOrEmpty(medicineId))
+                        {
+                            throw new SerializedException("InvalidMedicineId");
+                        }
                         if (list.Where(element => element.MedicineId == medicineId).Count() > 0)
                         {
                             throw new SerializedException("DuplicateOfMedicine");
                         }
 
-                        string medicineName = inventoryMatrix.GetValue(medicine_name, i);
+                        string medicineName = inventoryMatrix.GetValue(medicine_name, i).Trim();
 
                         DateTime inventoryDate = DateTime.Parse(lastInventoryColumn.Split(DynamicColumnNameSeparator)[1]);
-                        decimal medicineCount = Decimal.Parse(inventoryMatrix.GetValue(lastInventoryColumn, i), CultureInfo.InvariantCulture);
+                        decimal medicineCount = Decimal.Parse(inventoryMatrix.GetValue(lastInventoryColumn, i).Trim(), CultureInfo.InvariantCulture);
 
                         Dictionary<DateTime, decimal> incrementations = new Dictionary<DateTime, decimal>();
 
@@ -111,7 +119,7 @@ namespace MedicineTracking.Table
 
                             if (incrementDate >= inventoryDate)
                             {
-                                string incrementValueString = inventoryMatrix.GetValue(incrementColumns[j], i);
+                                string incrementValueString = inventoryMatrix.GetValue(incrementColumns[j], i).Trim();
                                 decimal incrementValue = String.IsNullOrEmpty(incrementValueString) ? 0 : Decimal.Parse(incrementValueString, CultureInfo.InvariantCulture);
 
                                 if (incrementValue != 0)

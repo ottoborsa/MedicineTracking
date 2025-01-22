@@ -12,8 +12,6 @@ namespace MedicineTracking.Core
 
         public const string FileExtension = "csv";
 
-        public const char FileExtensionSeparator = '.';
-
 
 
         public string Path_PatientInventory { get; private set; }
@@ -40,7 +38,7 @@ namespace MedicineTracking.Core
         {
             List<FileRecord> result = new();
 
-            foreach (string file in Directory.EnumerateFiles(path, $"*{FileExtensionSeparator}{FileExtension}"))
+            foreach (string file in Directory.EnumerateFiles(path, $"*.{FileExtension}"))
             {
                 result.Add(new FileRecord(file, File.ReadAllText(file, ApplicationInterface.ApplicationEncoding)));
             }

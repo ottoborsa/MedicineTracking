@@ -60,7 +60,7 @@ namespace MedicineTracking.Table
                     fileName = path[path.Length - 1];
 
                     string patientName = fileName.Split(FileNameSeparator)[0].Trim();
-                    string patientId = fileName.Split(FileNameSeparator)[1].Split(DataBase.FileExtensionSeparator)[0].Trim();
+                    string patientId = fileName.Split(FileNameSeparator)[1].Split('.')[0].Trim();
 
                     if (String.IsNullOrEmpty(patientId))
                     {

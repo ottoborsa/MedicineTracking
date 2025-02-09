@@ -82,7 +82,7 @@ namespace MedicineTracking
             Try(() =>
             {
                 SaveFile(
-                    $"{dateStr} - {nameof(ApplicationInterface.MedicineDecrementQuery)} - {dateFrom} - {dateTo}",
+                    $"{dateStr} - {nameof(ApplicationInterface.MedicineDecrementQuery)} - {dateFromStr} - {dateToStr}",
                     ApplicationInterface.MedicineDecrementQuery(dateFrom, dateTo),
                     DataBase.FileExtension
                 );
@@ -155,7 +155,6 @@ namespace MedicineTracking
         private static void Exception(SerializedException ex)
         {
             SystemError error = JsonConvert.DeserializeObject<SystemError>(SystemError.ParseException(ex).ErrorMessage);
-
             ErrorDialog(ex.GetType(), JsonConvert.SerializeObject(error, Formatting.Indented));
         }
 

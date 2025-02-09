@@ -109,6 +109,12 @@ namespace MedicineTracking.Table
                         string medicineName = inventoryMatrix.GetValue(medicine_name, i).Trim();
 
                         DateTime inventoryDate = DateTime.Parse(lastInventoryColumn.Split(DynamicColumnNameSeparator)[1]);
+
+                        if (inventoryDate > DateTools.GetToday())
+                        {
+                            throw new SerializedException("FutureInventoryDate");
+                        }
+
                         decimal medicineCount = Decimal.Parse(inventoryMatrix.GetValue(lastInventoryColumn, i).Trim(), CultureInfo.InvariantCulture);
 
                         Dictionary<DateTime, decimal> incrementations = new Dictionary<DateTime, decimal>();
@@ -116,6 +122,11 @@ namespace MedicineTracking.Table
                         for (int j = 0; j < incrementColumns.Count; j++)
                         {
                             DateTime incrementDate = DateTime.Parse(incrementColumns[j].Split(DynamicColumnNameSeparator)[1]);
+
+                            if (incrementDate > DateTools.GetToday())
+                            {
+                                throw new SerializedException("FutureIncrementDate");
+                            }
 
                             if (incrementDate >= inventoryDate)
                             {

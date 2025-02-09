@@ -244,7 +244,7 @@ namespace MedicineTracking
             // releaseInfoToolStripMenuItem
             // 
             this.releaseInfoToolStripMenuItem.Name = "releaseInfoToolStripMenuItem";
-            this.releaseInfoToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.releaseInfoToolStripMenuItem.Size = new System.Drawing.Size(137, 22);
             this.releaseInfoToolStripMenuItem.Text = "Release info";
             this.releaseInfoToolStripMenuItem.Click += new System.EventHandler(this.releaseInfoToolStripMenuItem_Click);
             // 

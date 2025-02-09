@@ -58,11 +58,11 @@ namespace MedicineTracking
             }
             catch (SerializedException ex)
             {
-                ExceptionDialog(ex);
+                Exception(ex);
             }
             catch (Exception ex)
             {
-                ExceptionDialog(ex);
+                Exception(ex);
             }
             finally
             {
@@ -76,7 +76,7 @@ namespace MedicineTracking
             Try(() =>
             {
                 SaveFile(
-                    $"{GetToday()} - {nameof(ApplicationInterface.MedicineDecrementQuery)} - {dateTimePicker1.Value.ToString(DateTools.DayPattern)} - {dateTimePicker2.Value.ToString(DateTools.DayPattern)}",
+                    $"{DateTools.GetTodayString()} - {nameof(ApplicationInterface.MedicineDecrementQuery)} - {dateTimePicker1.Value.ToString(DateTools.DayPattern)} - {dateTimePicker2.Value.ToString(DateTools.DayPattern)}",
                     ApplicationInterface.MedicineDecrementQuery(dateTimePicker1.Value, dateTimePicker2.Value),
                     DataBase.FileExtension
                 );
@@ -88,7 +88,7 @@ namespace MedicineTracking
             Try(() =>
             {
                 SaveFile(
-                    $"{GetToday()} - {nameof(ApplicationInterface.MedicineDepletionProjectionQuery)}",
+                    $"{DateTools.GetTodayString()} - {nameof(ApplicationInterface.MedicineDepletionProjectionQuery)}",
                     ApplicationInterface.MedicineDepletionProjectionQuery(),
                     DataBase.FileExtension
                 );
@@ -129,11 +129,6 @@ namespace MedicineTracking
             }
         }
 
-        private static string GetToday()
-        {
-            return DateTime.Now.ToString(DateTools.DayPattern);
-        }
-
         private void SetControlsState(bool state)
         {
             button1.Enabled = state;
@@ -144,12 +139,12 @@ namespace MedicineTracking
             dateTimePicker2.Enabled = state;
         }
 
-        private static void ExceptionDialog(Exception ex)
+        private static void Exception(Exception ex)
         {
             ErrorDialog(ex.GetType(), ex.Message);
         }
 
-        private static void ExceptionDialog(SerializedException ex)
+        private static void Exception(SerializedException ex)
         {
             SystemError error = JsonConvert.DeserializeObject<SystemError>(SystemError.ParseException(ex).ErrorMessage);
 

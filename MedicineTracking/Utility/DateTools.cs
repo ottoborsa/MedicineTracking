@@ -7,7 +7,7 @@ namespace MedicineTracking.Utility
     internal static class DateTools
     {
 
-        public const string ForeverDateString = "2030-01-31"; //"2099-12-31";
+        public const string ForeverDateString = "2040-01-01";
 
         public const string DayPattern = "yyyy-MM-dd";
 
@@ -19,6 +19,16 @@ namespace MedicineTracking.Utility
             {
                 yield return day;
             }
+        }
+
+        public static string GetTodayString()
+        {
+            return GetToday().ToString(DayPattern);
+        }
+
+        public static DateTime GetToday()
+        {
+            return DateTime.Now;
         }
     }
 }

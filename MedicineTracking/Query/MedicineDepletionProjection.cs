@@ -65,16 +65,15 @@ namespace MedicineTracking.Query
                     int progress = 50 + progressPercentage / 2;
                     ApplicationInterface.SetProgressBarValue(progress);
 
-
-                    DateTime depletionDay = DateTime.Parse(DateTools.ForeverDateString);
+                    DateTime? depletionDay = null;
                     decimal amount = inventoryRecord.MedicineCount;
 
                     // iterate on days
                     foreach (DateTime day in DateTools.EachDay(inventoryRecord.InventoryDate, DateTime.Parse(DateTools.ForeverDateString)))
                     {
 
-                        // iterate in incrementations
-                        foreach (KeyValuePair<DateTime, decimal> incrementation in inventoryRecord.Incrementations.Where(i => i.Key.Day == day.Day).ToList())
+                        // get incrementation of the day if there is any
+                        foreach (KeyValuePair<DateTime, decimal> incrementation in inventoryRecord.Incrementations.Where(i => i.Key == day).ToList())
                         {
                             amount += incrementation.Value;
                         }
@@ -104,15 +103,23 @@ namespace MedicineTracking.Query
                                     if (value != 0)
                                     {
                                         amount -= value;
+                                        amount = amount < 0 ? 0 : amount;
                                     }
                                 }
                             }
                         }
 
-                        if (amount <= 0)
+                        if (amount == 0)
                         {
                             depletionDay = day.AddDays(-1);
-                            break;
+
+                            if (
+                                inventoryRecord.Incrementations.Keys.Count == 0 ||
+                                day >= inventoryRecord.Incrementations.Keys.OrderByDescending(date => date).First()
+                               )
+                            {
+                                break;
+                            }
                         }
                     }
 
@@ -122,7 +129,7 @@ namespace MedicineTracking.Query
                         patient.PatientName,
                         inventoryRecord.MedicineId,
                         inventoryRecord.MedicineName,
-                        depletionDay.ToString(DateTools.DayPattern),
+                        depletionDay == null ? "-" : depletionDay?.ToString(DateTools.DayPattern)
                     });
                 }
             }

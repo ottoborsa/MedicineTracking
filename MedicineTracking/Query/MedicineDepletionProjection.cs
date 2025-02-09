@@ -9,6 +9,12 @@ using MedicineTracking.Core;
 using MedicineTracking.Messaging;
 
 
+
+// TODO: jelezni kellene, hogy ha le van allitva az embernek a gyoccer es mar nem is kell neki szednie
+// TODO: jelezni kellene, hogy korabban kifogyott neki, de szednie kellene, ugyhogy nagy gebasz van
+
+
+
 namespace MedicineTracking.Query
 {
     internal static class MedicineDepletionProjection

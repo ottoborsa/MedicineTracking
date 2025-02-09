@@ -10,10 +10,6 @@ using MedicineTracking.Messaging;
 
 
 
-// TODO: jelezni kellene, hogy ha le van allitva az embernek a gyoccer es mar nem is kell neki szednie
-// TODO: jelezni kellene, hogy korabban kifogyott neki, de szednie kellene, ugyhogy nagy gebasz van
-
-
 
 namespace MedicineTracking.Query
 {
@@ -27,13 +23,24 @@ namespace MedicineTracking.Query
 
         public const string depletion_day = nameof(depletion_day);
 
+        public const string remark = nameof(remark);
+
+
+        private const string ResultCode_NoDepletion = "-";
+
+        private const string ResultCode_NoCurrentValidity = "no_current_validity";
+
+        private const string ResultCode_DepletedMedicine = "depleted";
+
+
         public static string[] Signature { get; private set; } = new string[]
         {
             patient_id,
             patient_name,
             Table.PatientInventory.medicine_id,
             Table.PatientInventory.medicine_name,
-            depletion_day
+            depletion_day,
+            remark
         };
 
 
@@ -129,13 +136,32 @@ namespace MedicineTracking.Query
                         }
                     }
 
+                    string remarkField = String.Empty;
+
+                    int currentValidRangeCount =
+                        medicineDosages
+                            .Where(medicineDosage => medicineDosage.PatientId == patient.PatientId).First()
+                            .MedicineDosageRecords.Where(dosageRecord => dosageRecord.MedicineId == inventoryRecord.MedicineId)
+                            .Where(dosageRecord => dosageRecord.ValidFrom <= DateTools.GetToday() && dosageRecord.ValidTo >= DateTools.GetToday())
+                            .Count();
+
+                    if (currentValidRangeCount == 0)
+                    {
+                        remarkField = ResultCode_NoCurrentValidity;
+                    }
+                    else if (currentValidRangeCount > 0 && depletionDay != null && depletionDay <= DateTools.GetToday())
+                    {
+                        remarkField = ResultCode_DepletedMedicine;
+                    }
+
                     result.AddRow(new string[]
                     {
                         patient.PatientId,
                         patient.PatientName,
                         inventoryRecord.MedicineId,
                         inventoryRecord.MedicineName,
-                        depletionDay == null ? "-" : depletionDay?.ToString(DateTools.DayPattern)
+                        depletionDay != null ? depletionDay?.ToString(DateTools.DayPattern) : ResultCode_NoDepletion,
+                        remarkField
                     });
                 }
             }

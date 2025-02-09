@@ -141,9 +141,12 @@ namespace MedicineTracking.Query
                     int currentValidRangeCount =
                         medicineDosages
                             .Where(medicineDosage => medicineDosage.PatientId == patient.PatientId).First()
-                            .MedicineDosageRecords.Where(dosageRecord => dosageRecord.MedicineId == inventoryRecord.MedicineId)
-                            .Where(dosageRecord => dosageRecord.ValidFrom <= DateTools.GetToday() && dosageRecord.ValidTo >= DateTools.GetToday())
-                            .Count();
+                            .MedicineDosageRecords
+                                .Where(
+                                       dosageRecord => dosageRecord.MedicineId == inventoryRecord.MedicineId &&
+                                                       dosageRecord.ValidFrom <= DateTools.GetToday() &&
+                                                       dosageRecord.ValidTo >= DateTools.GetToday()
+                                      ).Count();
 
                     if (currentValidRangeCount == 0)
                     {

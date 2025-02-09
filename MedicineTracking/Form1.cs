@@ -73,11 +73,17 @@ namespace MedicineTracking
 
         private void medicineDecrement_Click(object sender, EventArgs e)
         {
+            DateTime dateFrom = dateTimePicker1.Value;
+            DateTime dateTo = dateTimePicker2.Value;
+            string dateStr = DateTools.GetTodayString();
+            string dateFromStr = dateFrom.ToString(DateTools.DayPattern);
+            string dateToStr = dateTo.ToString(DateTools.DayPattern);
+
             Try(() =>
             {
                 SaveFile(
-                    $"{DateTools.GetTodayString()} - {nameof(ApplicationInterface.MedicineDecrementQuery)} - {dateTimePicker1.Value.ToString(DateTools.DayPattern)} - {dateTimePicker2.Value.ToString(DateTools.DayPattern)}",
-                    ApplicationInterface.MedicineDecrementQuery(dateTimePicker1.Value, dateTimePicker2.Value),
+                    $"{dateStr} - {nameof(ApplicationInterface.MedicineDecrementQuery)} - {dateFrom} - {dateTo}",
+                    ApplicationInterface.MedicineDecrementQuery(dateFrom, dateTo),
                     DataBase.FileExtension
                 );
             });
@@ -85,10 +91,12 @@ namespace MedicineTracking
 
         private void medicineDepletionProjection_Click(object sender, EventArgs e)
         {
+            string dateStr = DateTools.GetTodayString();
+
             Try(() =>
             {
                 SaveFile(
-                    $"{DateTools.GetTodayString()} - {nameof(ApplicationInterface.MedicineDepletionProjectionQuery)}",
+                    $"{dateStr} - {nameof(ApplicationInterface.MedicineDepletionProjectionQuery)}",
                     ApplicationInterface.MedicineDepletionProjectionQuery(),
                     DataBase.FileExtension
                 );
